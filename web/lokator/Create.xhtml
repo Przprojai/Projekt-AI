@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="LokatorCreateDlg" widgetVar="LokatorCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateLokatorTitle}">
+            <h:form id="LokatorCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{lokatorController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateLokatorLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{lokatorController.selected.id}" title="#{bundle.CreateLokatorTitle_id}" required="true" requiredMessage="#{bundle.CreateLokatorRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.CreateLokatorLabel_login}" for="login" />
+                        <p:inputText id="login" value="#{lokatorController.selected.login}" title="#{bundle.CreateLokatorTitle_login}" required="true" requiredMessage="#{bundle.CreateLokatorRequiredMessage_login}"/>
+                        <p:outputLabel value="#{bundle.CreateLokatorLabel_haslo}" for="haslo" />
+                        <p:inputText id="haslo" value="#{lokatorController.selected.haslo}" title="#{bundle.CreateLokatorTitle_haslo}" required="true" requiredMessage="#{bundle.CreateLokatorRequiredMessage_haslo}"/>
+                        <p:outputLabel value="#{bundle.CreateLokatorLabel_kontakt}" for="kontakt" />
+                        <p:inputText id="kontakt" value="#{lokatorController.selected.kontakt}" title="#{bundle.CreateLokatorTitle_kontakt}" required="true" requiredMessage="#{bundle.CreateLokatorRequiredMessage_kontakt}"/>
+                        <p:outputLabel value="#{bundle.CreateLokatorLabel_aktywne}" for="aktywne" />
+                        <p:selectBooleanCheckbox id="aktywne" value="#{lokatorController.selected.aktywne}" required="true" requiredMessage="#{bundle.EditLokatorRequiredMessage_aktywne}"/>
+                        <p:outputLabel value="#{bundle.CreateLokatorLabel_mieszkanieId}" for="mieszkanieId" />
+                        <p:selectOneMenu id="mieszkanieId" value="#{lokatorController.selected.mieszkanieId}" required="true" requiredMessage="#{bundle.EditLokatorRequiredMessage_mieszkanieId}">
+                            <f:selectItems value="#{mieszkanieController.itemsAvailableSelectOne}"
+                                           var="mieszkanieIdItem"
+                                           itemValue="#{mieszkanieIdItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{lokatorController.create2}" value="#{bundle.Save}" update="display,:LokatorListForm:datalist,:growl" oncomplete="handleSubmit(args,'LokatorCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="LokatorCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

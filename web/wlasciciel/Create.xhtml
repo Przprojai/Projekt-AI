@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="WlascicielCreateDlg" widgetVar="WlascicielCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateWlascicielTitle}">
+            <h:form id="WlascicielCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{wlascicielController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateWlascicielLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{wlascicielController.selected.id}" title="#{bundle.CreateWlascicielTitle_id}" required="true" requiredMessage="#{bundle.CreateWlascicielRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.CreateWlascicielLabel_login}" for="login" />
+                        <p:inputText id="login" value="#{wlascicielController.selected.login}" title="#{bundle.CreateWlascicielTitle_login}" required="true" requiredMessage="#{bundle.CreateWlascicielRequiredMessage_login}"/>
+                        <p:outputLabel value="#{bundle.CreateWlascicielLabel_haslo}" for="haslo" />
+                        <p:inputText id="haslo" value="#{wlascicielController.selected.haslo}" title="#{bundle.CreateWlascicielTitle_haslo}" required="true" requiredMessage="#{bundle.CreateWlascicielRequiredMessage_haslo}"/>
+                        <p:outputLabel value="#{bundle.CreateWlascicielLabel_kontakt}" for="kontakt" />
+                        <p:inputText id="kontakt" value="#{wlascicielController.selected.kontakt}" title="#{bundle.CreateWlascicielTitle_kontakt}" required="true" requiredMessage="#{bundle.CreateWlascicielRequiredMessage_kontakt}"/>
+                        <p:outputLabel value="#{bundle.CreateWlascicielLabel_budynekId}" for="budynekId" />
+                        <p:selectOneMenu id="budynekId" value="#{wlascicielController.selected.budynekId}" required="true" requiredMessage="#{bundle.EditWlascicielRequiredMessage_budynekId}">
+                            <f:selectItems value="#{budynekController.itemsAvailableSelectOne}"
+                                           var="budynekIdItem"
+                                           itemValue="#{budynekIdItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{wlascicielController.create}" value="#{bundle.Save}" update="display,:WlascicielListForm:datalist,:growl" oncomplete="handleSubmit(args,'WlascicielCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="WlascicielCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="InformacjeCreateDlg" widgetVar="InformacjeCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateInformacjeTitle}">
+            <h:form id="InformacjeCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{informacjeController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateInformacjeLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{informacjeController.selected.id}" title="#{bundle.CreateInformacjeTitle_id}" required="true" requiredMessage="#{bundle.CreateInformacjeRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.CreateInformacjeLabel_data}" for="data" />
+                        <p:calendar id="data" pattern="HH:mm:ss" value="#{informacjeController.selected.data}" title="#{bundle.EditInformacjeTitle_data}" required="true" requiredMessage="#{bundle.EditInformacjeRequiredMessage_data}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateInformacjeLabel_opis}" for="opis" />
+                        <p:inputText id="opis" value="#{informacjeController.selected.opis}" title="#{bundle.CreateInformacjeTitle_opis}" required="true" requiredMessage="#{bundle.CreateInformacjeRequiredMessage_opis}"/>
+                        <p:outputLabel value="#{bundle.CreateInformacjeLabel_budynekId}" for="budynekId" />
+                        <p:selectOneMenu id="budynekId" value="#{informacjeController.selected.budynekId}" required="true" requiredMessage="#{bundle.EditInformacjeRequiredMessage_budynekId}">
+                            <f:selectItems value="#{budynekController.itemsAvailableSelectOne}"
+                                           var="budynekIdItem"
+                                           itemValue="#{budynekIdItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{informacjeController.create}" value="#{bundle.Save}" update="display,:InformacjeListForm:datalist,:growl" oncomplete="handleSubmit(args,'InformacjeCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="InformacjeCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

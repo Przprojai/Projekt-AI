@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="BudynekEditDlg" widgetVar="BudynekEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleBudynek.EditBudynekTitle}">
+            <h:form id="BudynekEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{budynekController.selected != null}">
+                        <p:outputLabel value="#{bundleBudynek.EditBudynekLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{budynekController.selected.id}" title="#{bundleBudynek.EditBudynekTitle_id}" required="true" requiredMessage="#{bundleBudynek.EditBudynekRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundleBudynek.EditBudynekLabel_adres}" for="adres" />
+                        <p:inputText id="adres" value="#{budynekController.selected.adres}" title="#{bundleBudynek.EditBudynekTitle_adres}" required="true" requiredMessage="#{bundleBudynek.EditBudynekRequiredMessage_adres}"/>
+                        <p:outputLabel value="#{bundleBudynek.EditBudynekLabel_iloscMieszkan}" for="iloscMieszkan" />
+                        <p:inputText id="iloscMieszkan" value="#{budynekController.selected.iloscMieszkan}" title="#{bundleBudynek.EditBudynekTitle_iloscMieszkan}" required="true" requiredMessage="#{bundleBudynek.EditBudynekRequiredMessage_iloscMieszkan}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{budynekController.update}" value="#{bundleBudynek.Save}" update="display,:BudynekListForm:datalist,:growl" oncomplete="handleSubmit(args, 'BudynekEditDialog');"/>
+                    <p:commandButton value="#{bundleBudynek.Cancel}" onclick="BudynekEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="InformacjeViewDlg" widgetVar="InformacjeViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewInformacjeTitle}">
+            <h:form id="InformacjeViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{informacjeController.selected != null}">
+                        <h:outputText value="#{bundle.ViewInformacjeLabel_id}"/>
+                        <h:outputText value="#{informacjeController.selected.id}" title="#{bundle.ViewInformacjeTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewInformacjeLabel_data}"/>
+                        <h:outputText value="#{informacjeController.selected.data}" title="#{bundle.ViewInformacjeTitle_data}">
+                            <f:convertDateTime pattern="HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewInformacjeLabel_opis}"/>
+                        <h:outputText value="#{informacjeController.selected.opis}" title="#{bundle.ViewInformacjeTitle_opis}"/>
+                        <h:outputText value="#{bundle.ViewInformacjeLabel_budynekId}"/>
+                        <h:outputText value="#{informacjeController.selected.budynekId}" title="#{bundle.ViewInformacjeTitle_budynekId}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="InformacjeViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

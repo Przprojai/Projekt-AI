@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="OplatyViewDlg" widgetVar="OplatyViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewOplatyTitle}">
+            <h:form id="OplatyViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{oplatyController.selected != null}">
+                        <h:outputText value="#{bundle.ViewOplatyLabel_id}"/>
+                        <h:outputText value="#{oplatyController.selected.id}" title="#{bundle.ViewOplatyTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewOplatyLabel_czynsz}"/>
+                        <h:outputText value="#{oplatyController.selected.czynsz}" title="#{bundle.ViewOplatyTitle_czynsz}"/>
+                        <h:outputText value="#{bundle.ViewOplatyLabel_wodaIScieki}"/>
+                        <h:outputText value="#{oplatyController.selected.wodaIScieki}" title="#{bundle.ViewOplatyTitle_wodaIScieki}"/>
+                        <h:outputText value="#{bundle.ViewOplatyLabel_ogrzewanie}"/>
+                        <h:outputText value="#{oplatyController.selected.ogrzewanie}" title="#{bundle.ViewOplatyTitle_ogrzewanie}"/>
+                        <h:outputText value="#{bundle.ViewOplatyLabel_media}"/>
+                        <h:outputText value="#{oplatyController.selected.media}" title="#{bundle.ViewOplatyTitle_media}"/>
+                        <h:outputText value="#{bundle.ViewOplatyLabel_mieszkanieId}"/>
+                        <h:outputText value="#{oplatyController.selected.mieszkanieId}" title="#{bundle.ViewOplatyTitle_mieszkanieId}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="OplatyViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
