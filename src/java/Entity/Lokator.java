@@ -6,22 +6,16 @@
 package Entity;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -36,7 +30,10 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Lokator.findByLogin", query = "SELECT l FROM Lokator l WHERE l.login = :login")
     , @NamedQuery(name = "Lokator.findByHaslo", query = "SELECT l FROM Lokator l WHERE l.haslo = :haslo")
     , @NamedQuery(name = "Lokator.findByKontakt", query = "SELECT l FROM Lokator l WHERE l.kontakt = :kontakt")
-    , @NamedQuery(name = "Lokator.findByAktywne", query = "SELECT l FROM Lokator l WHERE l.aktywne = :aktywne")})
+    , @NamedQuery(name = "Lokator.findByAktywne", query = "SELECT l FROM Lokator l WHERE l.aktywne = :aktywne")
+    , @NamedQuery(name = "Lokator.findByMieszkanieId", query = "SELECT l FROM Lokator l WHERE l.mieszkanieId = :mieszkanieId")
+    , @NamedQuery(name = "Lokator.findByImie", query = "SELECT l FROM Lokator l WHERE l.imie = :imie")
+    , @NamedQuery(name = "Lokator.findByNazwisko", query = "SELECT l FROM Lokator l WHERE l.nazwisko = :nazwisko")})
 public class Lokator implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -52,7 +49,7 @@ public class Lokator implements Serializable {
     private String login;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 25)
+    @Size(min = 1, max = 512)
     @Column(name = "haslo")
     private String haslo;
     @Basic(optional = false)
@@ -64,11 +61,18 @@ public class Lokator implements Serializable {
     @NotNull
     @Column(name = "aktywne")
     private boolean aktywne;
-    @JoinColumn(name = "mieszkanie_id", referencedColumnName = "id")
-    @ManyToOne(optional = true)
-    private Mieszkanie mieszkanieId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "lokatorId")
-    private Collection<Awaria> awariaCollection;
+    @Column(name = "mieszkanie_id")
+    private Short mieszkanieId;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 25)
+    @Column(name = "imie")
+    private String imie;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 25)
+    @Column(name = "nazwisko")
+    private String nazwisko;
 
     public Lokator() {
     }
@@ -77,12 +81,14 @@ public class Lokator implements Serializable {
         this.id = id;
     }
 
-    public Lokator(Short id, String login, String haslo, String kontakt, boolean aktywne) {
+    public Lokator(Short id, String login, String haslo, String kontakt, boolean aktywne, String imie, String nazwisko) {
         this.id = id;
         this.login = login;
         this.haslo = haslo;
         this.kontakt = kontakt;
         this.aktywne = aktywne;
+        this.imie = imie;
+        this.nazwisko = nazwisko;
     }
 
     public Short getId() {
@@ -125,21 +131,28 @@ public class Lokator implements Serializable {
         this.aktywne = aktywne;
     }
 
-    public Mieszkanie getMieszkanieId() {
+    public Short getMieszkanieId() {
         return mieszkanieId;
     }
 
-    public void setMieszkanieId(Mieszkanie mieszkanieId) {
+    public void setMieszkanieId(Short mieszkanieId) {
         this.mieszkanieId = mieszkanieId;
     }
 
-    @XmlTransient
-    public Collection<Awaria> getAwariaCollection() {
-        return awariaCollection;
+    public String getImie() {
+        return imie;
     }
 
-    public void setAwariaCollection(Collection<Awaria> awariaCollection) {
-        this.awariaCollection = awariaCollection;
+    public void setImie(String imie) {
+        this.imie = imie;
+    }
+
+    public String getNazwisko() {
+        return nazwisko;
+    }
+
+    public void setNazwisko(String nazwisko) {
+        this.nazwisko = nazwisko;
     }
 
     @Override

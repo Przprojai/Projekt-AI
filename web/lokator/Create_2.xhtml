@@ -15,13 +15,17 @@
                         <p:outputLabel value="#{bundle.CreateLokatorLabel_login}" for="login" />
                         <p:inputText id="login" value="#{lokatorController.selected.login}" title="#{bundle.CreateLokatorTitle_login}" required="true" requiredMessage="#{bundle.CreateLokatorRequiredMessage_login}"/>
                         <p:outputLabel value="#{bundle.CreateLokatorLabel_haslo}" for="haslo" />
-                        <p:inputText id="haslo" value="#{lokatorController.selected.haslo}" title="#{bundle.CreateLokatorTitle_haslo}" required="true" requiredMessage="#{bundle.CreateLokatorRequiredMessage_haslo}"/>
+                        <p:password id="haslo" value="#{lokatorController.selected.haslo}" title="#{bundle.CreateLokatorTitle_haslo}" required="true" requiredMessage="#{bundle.CreateLokatorRequiredMessage_haslo}"/>
                          <p:outputLabel value="Powtórz hasło:" for="haslo2" />
-                        <p:inputText id="haslo2" value="#{String}" title="#{bundle.CreateLokatorTitle_haslo}" required="true" requiredMessage="#{bundle.CreateLokatorRequiredMessage_haslo}"/>
+                        <p:password id="haslo2" value="#{String}" title="#{bundle.CreateLokatorTitle_haslo}" required="true" requiredMessage="#{bundle.CreateLokatorRequiredMessage_haslo}"/>
+                        <p:outputLabel value="#{bundle.CreateLokatorLabel_imie}" for="imie" />
+                        <p:inputText id="imie" value="#{lokatorController.selected.imie}" title="#{bundle.CreateLokatorTitle_imie}" required="true" requiredMessage="#{bundle.CreateLokatorRequiredMessage_imie}"/>
+                        <p:outputLabel value="#{bundle.CreateLokatorLabel_nazwisko}" for="nazwisko" />
+                        <p:inputText id="nazwisko" value="#{lokatorController.selected.nazwisko}" title="#{bundle.CreateLokatorTitle_nazwisko}" required="true" requiredMessage="#{bundle.CreateLokatorRequiredMessage_nazwisko}"/>
                         <p:outputLabel value="#{bundle.CreateLokatorLabel_kontakt}" for="kontakt" />
-                        <p:inputText id="kontakt" value="#{lokatorController.selected.kontakt}" title="#{bundle.CreateLokatorTitle_kontakt}" required="true" requiredMessage="#{bundle.CreateLokatorRequiredMessage_kontakt}"/>
+                        <p:inputMask id="kontakt" value="#{lokatorController.selected.kontakt}" mask="999999999" title="#{bundle.CreateLokatorTitle_kontakt}" required="true" requiredMessage="#{bundle.CreateLokatorRequiredMessage_kontakt}"/>
                         <p:outputLabel value="#{bundle.CreateLokatorLabel_mieszkanieId}" for="mieszkanieId" />
-                        <p:selectOneMenu id="mieszkanieId" value="#{lokatorController.selected.mieszkanieId}" required="true" requiredMessage="#{bundle.EditLokatorRequiredMessage_mieszkanieId}">
+                        <p:selectOneMenu id="mieszkanieId" value="#{lokatorController.selected.mieszkanieId}" required="false" requiredMessage="#{bundle.EditLokatorRequiredMessage_mieszkanieId}">
                             <f:selectItems value="#{mieszkanieController.itemsAvailableSelectOne}"
                                            var="mieszkanieIdItem"
                                            itemValue="#{mieszkanieIdItem}"/>

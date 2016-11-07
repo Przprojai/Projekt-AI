@@ -58,7 +58,7 @@ public class LokatorController implements Serializable {
     }
 
     public void create(String haslo) {
-          if (selected.getLogin().length() < 6) {
+        if (selected.getLogin().length() < 6) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login musi zawierać conajmniej 6 znaków", "Login musi zawierać conajmniej 6 znaków"));
         } else if (selected.getLogin().length() < 6) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login musi zawierać conajmniej 6 znaków", "Login musi zawierać conajmniej 6 znaków"));
@@ -68,20 +68,22 @@ public class LokatorController implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Hasła muszą się zgadzać", "Login musi zawierać conajmniej 6 znaków"));
         } else {
             selected.setAktywne(false);
-         //   selected.setHaslo(CryptWithSHA256.sha256("dupa"));
-        selected.setId(getFacade().id());
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("LokatorCreated"));
-        if (!JsfUtil.isValidationFailed()) {
-            items = null;    // Invalidate list of items to trigger re-query.
-        }
+            selected.setHaslo(CryptWithSHA256.sha256(selected.getHaslo()));
+            selected.setId(getFacade().id());
+            persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("LokatorCreated"));
+            if (!JsfUtil.isValidationFailed()) {
+                items = null;    // Invalidate list of items to trigger re-query.
+            }
         }
     }
+
     public void create2() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("LokatorCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
+
     public void update() {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("LokatorUpdated"));
     }

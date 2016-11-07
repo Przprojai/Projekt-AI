@@ -8,19 +8,19 @@
 
     <ui:composition>
 
-        <p:dialog id="BudynekEditDlg" widgetVar="BudynekEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleBudynek.EditBudynekTitle}">
+        <p:dialog id="BudynekEditDlg" widgetVar="BudynekEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditBudynekTitle}">
             <h:form id="BudynekEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{budynekController.selected != null}">
-                        <p:outputLabel value="#{bundleBudynek.EditBudynekLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{budynekController.selected.id}" title="#{bundleBudynek.EditBudynekTitle_id}" required="true" requiredMessage="#{bundleBudynek.EditBudynekRequiredMessage_id}"/>
-                        <p:outputLabel value="#{bundleBudynek.EditBudynekLabel_adres}" for="adres" />
-                        <p:inputText id="adres" value="#{budynekController.selected.adres}" title="#{bundleBudynek.EditBudynekTitle_adres}" required="true" requiredMessage="#{bundleBudynek.EditBudynekRequiredMessage_adres}"/>
-                        <p:outputLabel value="#{bundleBudynek.EditBudynekLabel_iloscMieszkan}" for="iloscMieszkan" />
-                        <p:inputText id="iloscMieszkan" value="#{budynekController.selected.iloscMieszkan}" title="#{bundleBudynek.EditBudynekTitle_iloscMieszkan}" required="true" requiredMessage="#{bundleBudynek.EditBudynekRequiredMessage_iloscMieszkan}"/>
+                        <p:outputLabel value="#{bundle.EditBudynekLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{budynekController.selected.id}" title="#{bundle.EditBudynekTitle_id}" required="true" requiredMessage="#{bundle.EditBudynekRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.EditBudynekLabel_adres}" for="adres" />
+                        <p:inputText id="adres" value="#{budynekController.selected.adres}" title="#{bundle.EditBudynekTitle_adres}" required="true" requiredMessage="#{bundle.EditBudynekRequiredMessage_adres}"/>
+                        <p:outputLabel value="#{bundle.EditBudynekLabel_iloscMieszkan}" for="iloscMieszkan" />
+                        <p:inputText id="iloscMieszkan" value="#{budynekController.selected.iloscMieszkan}" title="#{bundle.EditBudynekTitle_iloscMieszkan}" required="true" requiredMessage="#{bundle.EditBudynekRequiredMessage_iloscMieszkan}"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{budynekController.update}" value="#{bundleBudynek.Save}" update="display,:BudynekListForm:datalist,:growl" oncomplete="handleSubmit(args, 'BudynekEditDialog');"/>
-                    <p:commandButton value="#{bundleBudynek.Cancel}" onclick="BudynekEditDialog.hide()"/>
+                    <p:commandButton actionListener="#{budynekController.update}" value="#{bundle.Save}" update="display,:BudynekListForm:datalist,:growl" oncomplete="handleSubmit(args, 'BudynekEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="BudynekEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

@@ -57,6 +57,18 @@
                             </f:facet>
                             <h:outputText value="#{item.budynekId}"/>
                         </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListWlascicielTitle_imie}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.imie}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListWlascicielTitle_nazwisko}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nazwisko}"/>
+                        </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{wlascicielController.prepareCreate}" update=":WlascicielCreateForm" oncomplete="PF('WlascicielCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":WlascicielViewForm" oncomplete="PF('WlascicielViewDialog').show()" disabled="#{empty wlascicielController.selected}"/>

@@ -21,11 +21,11 @@
                         <p:outputLabel value="#{bundle.CreateWlascicielLabel_kontakt}" for="kontakt" />
                         <p:inputText id="kontakt" value="#{wlascicielController.selected.kontakt}" title="#{bundle.CreateWlascicielTitle_kontakt}" required="true" requiredMessage="#{bundle.CreateWlascicielRequiredMessage_kontakt}"/>
                         <p:outputLabel value="#{bundle.CreateWlascicielLabel_budynekId}" for="budynekId" />
-                        <p:selectOneMenu id="budynekId" value="#{wlascicielController.selected.budynekId}" required="true" requiredMessage="#{bundle.EditWlascicielRequiredMessage_budynekId}">
-                            <f:selectItems value="#{budynekController.itemsAvailableSelectOne}"
-                                           var="budynekIdItem"
-                                           itemValue="#{budynekIdItem}"/>
-                        </p:selectOneMenu>
+                        <p:inputText id="budynekId" value="#{wlascicielController.selected.budynekId}" title="#{bundle.CreateWlascicielTitle_budynekId}" required="true" requiredMessage="#{bundle.CreateWlascicielRequiredMessage_budynekId}"/>
+                        <p:outputLabel value="#{bundle.CreateWlascicielLabel_imie}" for="imie" />
+                        <p:inputText id="imie" value="#{wlascicielController.selected.imie}" title="#{bundle.CreateWlascicielTitle_imie}" required="true" requiredMessage="#{bundle.CreateWlascicielRequiredMessage_imie}"/>
+                        <p:outputLabel value="#{bundle.CreateWlascicielLabel_nazwisko}" for="nazwisko" />
+                        <p:inputText id="nazwisko" value="#{wlascicielController.selected.nazwisko}" title="#{bundle.CreateWlascicielTitle_nazwisko}" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{wlascicielController.create}" value="#{bundle.Save}" update="display,:WlascicielListForm:datalist,:growl" oncomplete="handleSubmit(args,'WlascicielCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="WlascicielCreateDialog.hide()"/>

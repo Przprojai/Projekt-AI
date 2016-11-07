@@ -6,21 +6,15 @@
 package Entity;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -32,7 +26,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Mieszkanie.findAll", query = "SELECT m FROM Mieszkanie m")
     , @NamedQuery(name = "Mieszkanie.findById", query = "SELECT m FROM Mieszkanie m WHERE m.id = :id")
-    , @NamedQuery(name = "Mieszkanie.findByIloscPokoi", query = "SELECT m FROM Mieszkanie m WHERE m.iloscPokoi = :iloscPokoi")})
+    , @NamedQuery(name = "Mieszkanie.findByIloscPokoi", query = "SELECT m FROM Mieszkanie m WHERE m.iloscPokoi = :iloscPokoi")
+    , @NamedQuery(name = "Mieszkanie.findByBudynekId", query = "SELECT m FROM Mieszkanie m WHERE m.budynekId = :budynekId")})
 public class Mieszkanie implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -45,13 +40,10 @@ public class Mieszkanie implements Serializable {
     @NotNull
     @Column(name = "ilosc_pokoi")
     private short iloscPokoi;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "mieszkanieId")
-    private Collection<Lokator> lokatorCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "mieszkanieId")
-    private Collection<Oplaty> oplatyCollection;
-    @JoinColumn(name = "budynek_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Budynek budynekId;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "budynek_id")
+    private short budynekId;
 
     public Mieszkanie() {
     }
@@ -60,9 +52,10 @@ public class Mieszkanie implements Serializable {
         this.id = id;
     }
 
-    public Mieszkanie(Short id, short iloscPokoi) {
+    public Mieszkanie(Short id, short iloscPokoi, short budynekId) {
         this.id = id;
         this.iloscPokoi = iloscPokoi;
+        this.budynekId = budynekId;
     }
 
     public Short getId() {
@@ -81,29 +74,11 @@ public class Mieszkanie implements Serializable {
         this.iloscPokoi = iloscPokoi;
     }
 
-    @XmlTransient
-    public Collection<Lokator> getLokatorCollection() {
-        return lokatorCollection;
-    }
-
-    public void setLokatorCollection(Collection<Lokator> lokatorCollection) {
-        this.lokatorCollection = lokatorCollection;
-    }
-
-    @XmlTransient
-    public Collection<Oplaty> getOplatyCollection() {
-        return oplatyCollection;
-    }
-
-    public void setOplatyCollection(Collection<Oplaty> oplatyCollection) {
-        this.oplatyCollection = oplatyCollection;
-    }
-
-    public Budynek getBudynekId() {
+    public short getBudynekId() {
         return budynekId;
     }
 
-    public void setBudynekId(Budynek budynekId) {
+    public void setBudynekId(short budynekId) {
         this.budynekId = budynekId;
     }
 
@@ -129,7 +104,7 @@ public class Mieszkanie implements Serializable {
 
     @Override
     public String toString() {
-        return "Mieszkanie" + id;
+        return "Entity.Mieszkanie[ id=" + id + " ]";
     }
     
 }

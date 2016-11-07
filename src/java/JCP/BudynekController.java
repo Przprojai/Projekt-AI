@@ -19,13 +19,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-
 @Named("budynekController")
 @SessionScoped
 public class BudynekController implements Serializable {
 
-
-    @EJB private SBP.BudynekFacade ejbFacade;
+    @EJB
+    private SBP.BudynekFacade ejbFacade;
     private List<Budynek> items = null;
     private Budynek selected;
 
@@ -57,18 +56,18 @@ public class BudynekController implements Serializable {
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/BundleBudynek").getString("BudynekCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("BudynekCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/BundleBudynek").getString("BudynekUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("BudynekUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/BundleBudynek").getString("BudynekDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("BudynekDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
@@ -101,11 +100,11 @@ public class BudynekController implements Serializable {
                 if (msg.length() > 0) {
                     JsfUtil.addErrorMessage(msg);
                 } else {
-                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/BundleBudynek").getString("PersistenceErrorOccured"));
+                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
                 }
             } catch (Exception ex) {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
-                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/BundleBudynek").getString("PersistenceErrorOccured"));
+                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             }
         }
     }
@@ -122,7 +121,7 @@ public class BudynekController implements Serializable {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass=Budynek.class)
+    @FacesConverter(forClass = Budynek.class)
     public static class BudynekControllerConverter implements Converter {
 
         @Override
@@ -130,7 +129,7 @@ public class BudynekController implements Serializable {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            BudynekController controller = (BudynekController)facesContext.getApplication().getELResolver().
+            BudynekController controller = (BudynekController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "budynekController");
             return controller.getBudynek(getKey(value));
         }

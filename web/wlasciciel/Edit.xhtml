@@ -21,12 +21,11 @@
                         <p:outputLabel value="#{bundle.EditWlascicielLabel_kontakt}" for="kontakt" />
                         <p:inputText id="kontakt" value="#{wlascicielController.selected.kontakt}" title="#{bundle.EditWlascicielTitle_kontakt}" required="true" requiredMessage="#{bundle.EditWlascicielRequiredMessage_kontakt}"/>
                         <p:outputLabel value="#{bundle.EditWlascicielLabel_budynekId}" for="budynekId" />
-                        <p:selectOneMenu id="budynekId" value="#{wlascicielController.selected.budynekId}" required="true" requiredMessage="#{bundle.EditWlascicielRequiredMessage_budynekId}">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{budynekController.itemsAvailableSelectOne}"
-                                           var="budynekIdItem"
-                                           itemValue="#{budynekIdItem}"/>
-                        </p:selectOneMenu>
+                        <p:inputText id="budynekId" value="#{wlascicielController.selected.budynekId}" title="#{bundle.EditWlascicielTitle_budynekId}" required="true" requiredMessage="#{bundle.EditWlascicielRequiredMessage_budynekId}"/>
+                        <p:outputLabel value="#{bundle.EditWlascicielLabel_imie}" for="imie" />
+                        <p:inputText id="imie" value="#{wlascicielController.selected.imie}" title="#{bundle.EditWlascicielTitle_imie}" required="true" requiredMessage="#{bundle.EditWlascicielRequiredMessage_imie}"/>
+                        <p:outputLabel value="#{bundle.EditWlascicielLabel_nazwisko}" for="nazwisko" />
+                        <p:inputText id="nazwisko" value="#{wlascicielController.selected.nazwisko}" title="#{bundle.EditWlascicielTitle_nazwisko}" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{wlascicielController.update}" value="#{bundle.Save}" update="display,:WlascicielListForm:datalist,:growl" oncomplete="handleSubmit(args, 'WlascicielEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="WlascicielEditDialog.hide()"/>

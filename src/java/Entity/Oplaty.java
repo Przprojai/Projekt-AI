@@ -10,8 +10,6 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -31,7 +29,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Oplaty.findByCzynsz", query = "SELECT o FROM Oplaty o WHERE o.czynsz = :czynsz")
     , @NamedQuery(name = "Oplaty.findByWodaIScieki", query = "SELECT o FROM Oplaty o WHERE o.wodaIScieki = :wodaIScieki")
     , @NamedQuery(name = "Oplaty.findByOgrzewanie", query = "SELECT o FROM Oplaty o WHERE o.ogrzewanie = :ogrzewanie")
-    , @NamedQuery(name = "Oplaty.findByMedia", query = "SELECT o FROM Oplaty o WHERE o.media = :media")})
+    , @NamedQuery(name = "Oplaty.findByMedia", query = "SELECT o FROM Oplaty o WHERE o.media = :media")
+    , @NamedQuery(name = "Oplaty.findByMieszkanieId", query = "SELECT o FROM Oplaty o WHERE o.mieszkanieId = :mieszkanieId")})
 public class Oplaty implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -56,9 +55,10 @@ public class Oplaty implements Serializable {
     @NotNull
     @Column(name = "media")
     private short media;
-    @JoinColumn(name = "mieszkanie_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Mieszkanie mieszkanieId;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "mieszkanie_id")
+    private short mieszkanieId;
 
     public Oplaty() {
     }
@@ -67,12 +67,13 @@ public class Oplaty implements Serializable {
         this.id = id;
     }
 
-    public Oplaty(Short id, short czynsz, short wodaIScieki, short ogrzewanie, short media) {
+    public Oplaty(Short id, short czynsz, short wodaIScieki, short ogrzewanie, short media, short mieszkanieId) {
         this.id = id;
         this.czynsz = czynsz;
         this.wodaIScieki = wodaIScieki;
         this.ogrzewanie = ogrzewanie;
         this.media = media;
+        this.mieszkanieId = mieszkanieId;
     }
 
     public Short getId() {
@@ -115,11 +116,11 @@ public class Oplaty implements Serializable {
         this.media = media;
     }
 
-    public Mieszkanie getMieszkanieId() {
+    public short getMieszkanieId() {
         return mieszkanieId;
     }
 
-    public void setMieszkanieId(Mieszkanie mieszkanieId) {
+    public void setMieszkanieId(short mieszkanieId) {
         this.mieszkanieId = mieszkanieId;
     }
 

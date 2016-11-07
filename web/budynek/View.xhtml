@@ -8,18 +8,18 @@
 
     <ui:composition>
 
-        <p:dialog id="BudynekViewDlg" widgetVar="BudynekViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundleBudynek.ViewBudynekTitle}">
+        <p:dialog id="BudynekViewDlg" widgetVar="BudynekViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewBudynekTitle}">
             <h:form id="BudynekViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{budynekController.selected != null}">
-                        <h:outputText value="#{bundleBudynek.ViewBudynekLabel_id}"/>
-                        <h:outputText value="#{budynekController.selected.id}" title="#{bundleBudynek.ViewBudynekTitle_id}"/>
-                        <h:outputText value="#{bundleBudynek.ViewBudynekLabel_adres}"/>
-                        <h:outputText value="#{budynekController.selected.adres}" title="#{bundleBudynek.ViewBudynekTitle_adres}"/>
-                        <h:outputText value="#{bundleBudynek.ViewBudynekLabel_iloscMieszkan}"/>
-                        <h:outputText value="#{budynekController.selected.iloscMieszkan}" title="#{bundleBudynek.ViewBudynekTitle_iloscMieszkan}"/>
+                        <h:outputText value="#{bundle.ViewBudynekLabel_id}"/>
+                        <h:outputText value="#{budynekController.selected.id}" title="#{bundle.ViewBudynekTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewBudynekLabel_adres}"/>
+                        <h:outputText value="#{budynekController.selected.adres}" title="#{bundle.ViewBudynekTitle_adres}"/>
+                        <h:outputText value="#{bundle.ViewBudynekLabel_iloscMieszkan}"/>
+                        <h:outputText value="#{budynekController.selected.iloscMieszkan}" title="#{bundle.ViewBudynekTitle_iloscMieszkan}"/>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundleBudynek.Close}" onclick="BudynekViewDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Close}" onclick="BudynekViewDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

@@ -30,7 +30,7 @@ public class LokatorFacade extends AbstractFacade<Lokator> {
     public LokatorFacade() {
         super(Lokator.class);
     }
-    public Short id() {
+        public Short id() {
         Query q = em.createQuery("SELECT MAX(x.id) FROM Lokator x");
         Short result = (Short) q.getSingleResult();
         if (result == null) {
@@ -57,4 +57,5 @@ public class LokatorFacade extends AbstractFacade<Lokator> {
         return wynik;
 
     }
+
 }
