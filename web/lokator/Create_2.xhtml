@@ -24,12 +24,7 @@
                         <p:inputText id="nazwisko" value="#{lokatorController.selected.nazwisko}" title="#{bundle.CreateLokatorTitle_nazwisko}" required="true" requiredMessage="#{bundle.CreateLokatorRequiredMessage_nazwisko}"/>
                         <p:outputLabel value="#{bundle.CreateLokatorLabel_kontakt}" for="kontakt" />
                         <p:inputMask id="kontakt" value="#{lokatorController.selected.kontakt}" mask="999999999" title="#{bundle.CreateLokatorTitle_kontakt}" required="true" requiredMessage="#{bundle.CreateLokatorRequiredMessage_kontakt}"/>
-                        <p:outputLabel value="#{bundle.CreateLokatorLabel_mieszkanieId}" for="mieszkanieId" />
-                        <p:selectOneMenu id="mieszkanieId" value="#{lokatorController.selected.mieszkanieId}" required="false" requiredMessage="#{bundle.EditLokatorRequiredMessage_mieszkanieId}">
-                            <f:selectItems value="#{mieszkanieController.itemsAvailableSelectOne}"
-                                           var="mieszkanieIdItem"
-                                           itemValue="#{mieszkanieIdItem}"/>
-                        </p:selectOneMenu>
+                       
                     </p:panelGrid>
                     <p:commandButton actionListener="#{lokatorController.create(String)}" value="#{bundle.Save}" onclick="LokatorCreateDialog.hide()" oncomplete="handleSubmit(args,'LokatorCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="LokatorCreateDialog.hide()"/>
