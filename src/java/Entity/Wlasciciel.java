@@ -10,6 +10,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -30,7 +32,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Wlasciciel.findByLogin", query = "SELECT w FROM Wlasciciel w WHERE w.login = :login")
     , @NamedQuery(name = "Wlasciciel.findByHaslo", query = "SELECT w FROM Wlasciciel w WHERE w.haslo = :haslo")
     , @NamedQuery(name = "Wlasciciel.findByKontakt", query = "SELECT w FROM Wlasciciel w WHERE w.kontakt = :kontakt")
-    , @NamedQuery(name = "Wlasciciel.findByBudynekId", query = "SELECT w FROM Wlasciciel w WHERE w.budynekId = :budynekId")
     , @NamedQuery(name = "Wlasciciel.findByImie", query = "SELECT w FROM Wlasciciel w WHERE w.imie = :imie")
     , @NamedQuery(name = "Wlasciciel.findByNazwisko", query = "SELECT w FROM Wlasciciel w WHERE w.nazwisko = :nazwisko")})
 public class Wlasciciel implements Serializable {
@@ -58,16 +59,15 @@ public class Wlasciciel implements Serializable {
     private String kontakt;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "budynek_id")
-    private short budynekId;
-    @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 25)
     @Column(name = "imie")
     private String imie;
     @Size(max = 25)
     @Column(name = "nazwisko")
     private String nazwisko;
+    @JoinColumn(name = "budynek_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Budynek budynekId;
 
     public Wlasciciel() {
     }
@@ -76,12 +76,11 @@ public class Wlasciciel implements Serializable {
         this.id = id;
     }
 
-    public Wlasciciel(Short id, String login, String haslo, String kontakt, short budynekId, String imie) {
+    public Wlasciciel(Short id, String login, String haslo, String kontakt, String imie) {
         this.id = id;
         this.login = login;
         this.haslo = haslo;
         this.kontakt = kontakt;
-        this.budynekId = budynekId;
         this.imie = imie;
     }
 
@@ -117,14 +116,6 @@ public class Wlasciciel implements Serializable {
         this.kontakt = kontakt;
     }
 
-    public short getBudynekId() {
-        return budynekId;
-    }
-
-    public void setBudynekId(short budynekId) {
-        this.budynekId = budynekId;
-    }
-
     public String getImie() {
         return imie;
     }
@@ -139,6 +130,14 @@ public class Wlasciciel implements Serializable {
 
     public void setNazwisko(String nazwisko) {
         this.nazwisko = nazwisko;
+    }
+
+    public Budynek getBudynekId() {
+        return budynekId;
+    }
+
+    public void setBudynekId(Budynek budynekId) {
+        this.budynekId = budynekId;
     }
 
     @Override

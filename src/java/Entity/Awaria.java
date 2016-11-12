@@ -11,6 +11,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -33,8 +35,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Awaria.findByDataZgloszenia", query = "SELECT a FROM Awaria a WHERE a.dataZgloszenia = :dataZgloszenia")
     , @NamedQuery(name = "Awaria.findByOpis", query = "SELECT a FROM Awaria a WHERE a.opis = :opis")
     , @NamedQuery(name = "Awaria.findByRozwiazane", query = "SELECT a FROM Awaria a WHERE a.rozwiazane = :rozwiazane")
-    , @NamedQuery(name = "Awaria.findByLokatorId", query = "SELECT a FROM Awaria a WHERE a.lokatorId = :lokatorId")
-    , @NamedQuery(name = "Awaria.findByBudynekId", query = "SELECT a FROM Awaria a WHERE a.budynekId = :budynekId")})
+    , @NamedQuery(name = "Awaria.findByLokatorId", query = "SELECT a FROM Awaria a WHERE a.lokatorId = :lokatorId")})
 public class Awaria implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -61,10 +62,9 @@ public class Awaria implements Serializable {
     @NotNull
     @Column(name = "lokator_id")
     private short lokatorId;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "budynek_id")
-    private short budynekId;
+    @JoinColumn(name = "budynek_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Budynek budynekId;
 
     public Awaria() {
     }
@@ -73,13 +73,12 @@ public class Awaria implements Serializable {
         this.id = id;
     }
 
-    public Awaria(Short id, Date dataZgloszenia, String opis, boolean rozwiazane, short lokatorId, short budynekId) {
+    public Awaria(Short id, Date dataZgloszenia, String opis, boolean rozwiazane, short lokatorId) {
         this.id = id;
         this.dataZgloszenia = dataZgloszenia;
         this.opis = opis;
         this.rozwiazane = rozwiazane;
         this.lokatorId = lokatorId;
-        this.budynekId = budynekId;
     }
 
     public Short getId() {
@@ -122,11 +121,11 @@ public class Awaria implements Serializable {
         this.lokatorId = lokatorId;
     }
 
-    public short getBudynekId() {
+    public Budynek getBudynekId() {
         return budynekId;
     }
 
-    public void setBudynekId(short budynekId) {
+    public void setBudynekId(Budynek budynekId) {
         this.budynekId = budynekId;
     }
 

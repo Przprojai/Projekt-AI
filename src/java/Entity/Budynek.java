@@ -6,16 +6,20 @@
 package Entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -46,6 +50,14 @@ public class Budynek implements Serializable {
     @NotNull
     @Column(name = "ilosc_mieszkan")
     private short iloscMieszkan;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "budynekId")
+    private Collection<Wlasciciel> wlascicielCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "budynekId")
+    private Collection<Informacje> informacjeCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "budynekId")
+    private Collection<Mieszkanie> mieszkanieCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "budynekId")
+    private Collection<Awaria> awariaCollection;
 
     public Budynek() {
     }
@@ -82,6 +94,42 @@ public class Budynek implements Serializable {
 
     public void setIloscMieszkan(short iloscMieszkan) {
         this.iloscMieszkan = iloscMieszkan;
+    }
+
+    @XmlTransient
+    public Collection<Wlasciciel> getWlascicielCollection() {
+        return wlascicielCollection;
+    }
+
+    public void setWlascicielCollection(Collection<Wlasciciel> wlascicielCollection) {
+        this.wlascicielCollection = wlascicielCollection;
+    }
+
+    @XmlTransient
+    public Collection<Informacje> getInformacjeCollection() {
+        return informacjeCollection;
+    }
+
+    public void setInformacjeCollection(Collection<Informacje> informacjeCollection) {
+        this.informacjeCollection = informacjeCollection;
+    }
+
+    @XmlTransient
+    public Collection<Mieszkanie> getMieszkanieCollection() {
+        return mieszkanieCollection;
+    }
+
+    public void setMieszkanieCollection(Collection<Mieszkanie> mieszkanieCollection) {
+        this.mieszkanieCollection = mieszkanieCollection;
+    }
+
+    @XmlTransient
+    public Collection<Awaria> getAwariaCollection() {
+        return awariaCollection;
+    }
+
+    public void setAwariaCollection(Collection<Awaria> awariaCollection) {
+        this.awariaCollection = awariaCollection;
     }
 
     @Override

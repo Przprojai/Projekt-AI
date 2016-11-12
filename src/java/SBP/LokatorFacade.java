@@ -8,10 +8,11 @@ package SBP;
 import Entity.Lokator;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-
+import javax.persistence.TypedQuery;
+import szyfrowanie.CryptWithSHA256;
+import javax.persistence.NoResultException;
 /**
  *
  * @author Waldek
@@ -30,7 +31,7 @@ public class LokatorFacade extends AbstractFacade<Lokator> {
     public LokatorFacade() {
         super(Lokator.class);
     }
-        public Short id() {
+      public Short id() {
         Query q = em.createQuery("SELECT MAX(x.id) FROM Lokator x");
         Short result = (Short) q.getSingleResult();
         if (result == null) {
@@ -56,6 +57,21 @@ public class LokatorFacade extends AbstractFacade<Lokator> {
         }
         return wynik;
 
+    }
+        public Lokator login(String log, String pass) {
+        pass = CryptWithSHA256.sha256(pass);
+        Lokator wynik= new Lokator();
+        try {
+             TypedQuery<Lokator> q2
+                = em.createQuery("SELECT c FROM Lokator c WHERE c.login = :login AND c.haslo=:haslo  ", Lokator.class).setParameter("login", log).setParameter("haslo", pass);
+            if (q2.getSingleResult() != null) {
+                wynik = q2.getSingleResult();
+            }
+        } catch (NoResultException e) {
+
+            wynik = null;
+        }
+        return wynik;
     }
 
 }

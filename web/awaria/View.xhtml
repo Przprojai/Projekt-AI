@@ -22,10 +22,10 @@
                         <h:outputText value="#{awariaController.selected.opis}" title="#{bundle.ViewAwariaTitle_opis}"/>
                         <h:outputText value="#{bundle.ViewAwariaLabel_rozwiazane}"/>
                         <p:selectBooleanCheckbox value="#{awariaController.selected.rozwiazane}" disabled="true"/>
-                        <h:outputText value="#{bundle.ViewAwariaLabel_budynekId}"/>
-                        <h:outputText value="#{awariaController.selected.budynekId}" title="#{bundle.ViewAwariaTitle_budynekId}"/>
                         <h:outputText value="#{bundle.ViewAwariaLabel_lokatorId}"/>
                         <h:outputText value="#{awariaController.selected.lokatorId}" title="#{bundle.ViewAwariaTitle_lokatorId}"/>
+                        <h:outputText value="#{bundle.ViewAwariaLabel_budynekId}"/>
+                        <h:outputText value="#{awariaController.selected.budynekId}" title="#{bundle.ViewAwariaTitle_budynekId}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="AwariaViewDialog.hide()"/>
                 </h:panelGroup>

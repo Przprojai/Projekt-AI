@@ -10,6 +10,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -31,7 +33,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Lokator.findByHaslo", query = "SELECT l FROM Lokator l WHERE l.haslo = :haslo")
     , @NamedQuery(name = "Lokator.findByKontakt", query = "SELECT l FROM Lokator l WHERE l.kontakt = :kontakt")
     , @NamedQuery(name = "Lokator.findByAktywne", query = "SELECT l FROM Lokator l WHERE l.aktywne = :aktywne")
-    , @NamedQuery(name = "Lokator.findByMieszkanieId", query = "SELECT l FROM Lokator l WHERE l.mieszkanieId = :mieszkanieId")
     , @NamedQuery(name = "Lokator.findByImie", query = "SELECT l FROM Lokator l WHERE l.imie = :imie")
     , @NamedQuery(name = "Lokator.findByNazwisko", query = "SELECT l FROM Lokator l WHERE l.nazwisko = :nazwisko")})
 public class Lokator implements Serializable {
@@ -61,8 +62,6 @@ public class Lokator implements Serializable {
     @NotNull
     @Column(name = "aktywne")
     private boolean aktywne;
-    @Column(name = "mieszkanie_id")
-    private Short mieszkanieId;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 25)
@@ -73,6 +72,9 @@ public class Lokator implements Serializable {
     @Size(min = 1, max = 25)
     @Column(name = "nazwisko")
     private String nazwisko;
+    @JoinColumn(name = "mieszkanie_id", referencedColumnName = "id")
+    @ManyToOne
+    private Mieszkanie mieszkanieId;
 
     public Lokator() {
     }
@@ -131,14 +133,6 @@ public class Lokator implements Serializable {
         this.aktywne = aktywne;
     }
 
-    public Short getMieszkanieId() {
-        return mieszkanieId;
-    }
-
-    public void setMieszkanieId(Short mieszkanieId) {
-        this.mieszkanieId = mieszkanieId;
-    }
-
     public String getImie() {
         return imie;
     }
@@ -153,6 +147,14 @@ public class Lokator implements Serializable {
 
     public void setNazwisko(String nazwisko) {
         this.nazwisko = nazwisko;
+    }
+
+    public Mieszkanie getMieszkanieId() {
+        return mieszkanieId;
+    }
+
+    public void setMieszkanieId(Mieszkanie mieszkanieId) {
+        this.mieszkanieId = mieszkanieId;
     }
 
     @Override

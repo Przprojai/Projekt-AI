@@ -20,7 +20,7 @@
                 <h:inputSecret id="haslo" value="#{String2}" />
             </h:panelGrid>
             <br />
-            
+            <p:commandButton action="#{lokatorController.logowanie(String1,String2)}" value="Zaloguj" />
             <br />
             <p:commandButton id="createButton" icon="ui-icon-plus"   value="Rejestracja" actionListener="#{lokatorController.prepareCreate}" update=":LokatorCreateForm" oncomplete="PF('LokatorCreateDialog').show()"/>        
             <br />

@@ -22,12 +22,16 @@
                         <p:inputText id="kontakt" value="#{lokatorController.selected.kontakt}" title="#{bundle.CreateLokatorTitle_kontakt}" required="true" requiredMessage="#{bundle.CreateLokatorRequiredMessage_kontakt}"/>
                         <p:outputLabel value="#{bundle.CreateLokatorLabel_aktywne}" for="aktywne" />
                         <p:selectBooleanCheckbox id="aktywne" value="#{lokatorController.selected.aktywne}" required="true" requiredMessage="#{bundle.EditLokatorRequiredMessage_aktywne}"/>
-                        <p:outputLabel value="#{bundle.CreateLokatorLabel_mieszkanieId}" for="mieszkanieId" />
-                        <p:inputText id="mieszkanieId" value="#{lokatorController.selected.mieszkanieId}" title="#{bundle.CreateLokatorTitle_mieszkanieId}" required="true" requiredMessage="#{bundle.CreateLokatorRequiredMessage_mieszkanieId}"/>
                         <p:outputLabel value="#{bundle.CreateLokatorLabel_imie}" for="imie" />
                         <p:inputText id="imie" value="#{lokatorController.selected.imie}" title="#{bundle.CreateLokatorTitle_imie}" required="true" requiredMessage="#{bundle.CreateLokatorRequiredMessage_imie}"/>
                         <p:outputLabel value="#{bundle.CreateLokatorLabel_nazwisko}" for="nazwisko" />
                         <p:inputText id="nazwisko" value="#{lokatorController.selected.nazwisko}" title="#{bundle.CreateLokatorTitle_nazwisko}" required="true" requiredMessage="#{bundle.CreateLokatorRequiredMessage_nazwisko}"/>
+                        <p:outputLabel value="#{bundle.CreateLokatorLabel_mieszkanieId}" for="mieszkanieId" />
+                        <p:selectOneMenu id="mieszkanieId" value="#{lokatorController.selected.mieszkanieId}" >
+                            <f:selectItems value="#{mieszkanieController.itemsAvailableSelectOne}"
+                                           var="mieszkanieIdItem"
+                                           itemValue="#{mieszkanieIdItem}"/>
+                        </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{lokatorController.create}" value="#{bundle.Save}" update="display,:LokatorListForm:datalist,:growl" oncomplete="handleSubmit(args,'LokatorCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="LokatorCreateDialog.hide()"/>

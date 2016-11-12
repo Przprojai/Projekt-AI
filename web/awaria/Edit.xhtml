@@ -20,19 +20,14 @@
                         <p:inputText id="opis" value="#{awariaController.selected.opis}" title="#{bundle.EditAwariaTitle_opis}" required="true" requiredMessage="#{bundle.EditAwariaRequiredMessage_opis}"/>
                         <p:outputLabel value="#{bundle.EditAwariaLabel_rozwiazane}" for="rozwiazane" />
                         <p:selectBooleanCheckbox id="rozwiazane" value="#{awariaController.selected.rozwiazane}" required="true" requiredMessage="#{bundle.EditAwariaRequiredMessage_rozwiazane}"/>
+                        <p:outputLabel value="#{bundle.EditAwariaLabel_lokatorId}" for="lokatorId" />
+                        <p:inputText id="lokatorId" value="#{awariaController.selected.lokatorId}" title="#{bundle.EditAwariaTitle_lokatorId}" required="true" requiredMessage="#{bundle.EditAwariaRequiredMessage_lokatorId}"/>
                         <p:outputLabel value="#{bundle.EditAwariaLabel_budynekId}" for="budynekId" />
                         <p:selectOneMenu id="budynekId" value="#{awariaController.selected.budynekId}" required="true" requiredMessage="#{bundle.EditAwariaRequiredMessage_budynekId}">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{budynekController.itemsAvailableSelectOne}"
                                            var="budynekIdItem"
                                            itemValue="#{budynekIdItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditAwariaLabel_lokatorId}" for="lokatorId" />
-                        <p:selectOneMenu id="lokatorId" value="#{awariaController.selected.lokatorId}" required="true" requiredMessage="#{bundle.EditAwariaRequiredMessage_lokatorId}">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{lokatorController.itemsAvailableSelectOne}"
-                                           var="lokatorIdItem"
-                                           itemValue="#{lokatorIdItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{awariaController.update}" value="#{bundle.Save}" update="display,:AwariaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'AwariaEditDialog');"/>

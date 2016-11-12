@@ -59,12 +59,6 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListLokatorTitle_mieszkanieId}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.mieszkanieId}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListLokatorTitle_imie}"/>
                             </f:facet>
                             <h:outputText value="#{item.imie}"/>
@@ -74,6 +68,12 @@
                                 <h:outputText value="#{bundle.ListLokatorTitle_nazwisko}"/>
                             </f:facet>
                             <h:outputText value="#{item.nazwisko}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListLokatorTitle_mieszkanieId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.mieszkanieId}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{lokatorController.prepareCreate}" update=":LokatorCreateForm" oncomplete="PF('LokatorCreateDialog').show()"/>

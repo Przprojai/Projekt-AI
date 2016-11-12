@@ -55,15 +55,15 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAwariaTitle_budynekId}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.budynekId}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListAwariaTitle_lokatorId}"/>
                             </f:facet>
                             <h:outputText value="#{item.lokatorId}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAwariaTitle_budynekId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.budynekId}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{awariaController.prepareCreate}" update=":AwariaCreateForm" oncomplete="PF('AwariaCreateDialog').show()"/>

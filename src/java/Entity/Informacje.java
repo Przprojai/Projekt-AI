@@ -11,6 +11,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -31,8 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Informacje.findAll", query = "SELECT i FROM Informacje i")
     , @NamedQuery(name = "Informacje.findById", query = "SELECT i FROM Informacje i WHERE i.id = :id")
     , @NamedQuery(name = "Informacje.findByData", query = "SELECT i FROM Informacje i WHERE i.data = :data")
-    , @NamedQuery(name = "Informacje.findByOpis", query = "SELECT i FROM Informacje i WHERE i.opis = :opis")
-    , @NamedQuery(name = "Informacje.findByBudynekId", query = "SELECT i FROM Informacje i WHERE i.budynekId = :budynekId")})
+    , @NamedQuery(name = "Informacje.findByOpis", query = "SELECT i FROM Informacje i WHERE i.opis = :opis")})
 public class Informacje implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -51,10 +52,9 @@ public class Informacje implements Serializable {
     @Size(min = 1, max = 256)
     @Column(name = "opis")
     private String opis;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "budynek_id")
-    private short budynekId;
+    @JoinColumn(name = "budynek_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Budynek budynekId;
 
     public Informacje() {
     }
@@ -63,11 +63,10 @@ public class Informacje implements Serializable {
         this.id = id;
     }
 
-    public Informacje(Short id, Date data, String opis, short budynekId) {
+    public Informacje(Short id, Date data, String opis) {
         this.id = id;
         this.data = data;
         this.opis = opis;
-        this.budynekId = budynekId;
     }
 
     public Short getId() {
@@ -94,11 +93,11 @@ public class Informacje implements Serializable {
         this.opis = opis;
     }
 
-    public short getBudynekId() {
+    public Budynek getBudynekId() {
         return budynekId;
     }
 
-    public void setBudynekId(short budynekId) {
+    public void setBudynekId(Budynek budynekId) {
         this.budynekId = budynekId;
     }
 

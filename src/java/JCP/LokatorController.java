@@ -29,6 +29,7 @@ public class LokatorController implements Serializable {
     private SBP.LokatorFacade ejbFacade;
     private List<Lokator> items = null;
     private Lokator selected;
+    private boolean zalogowany = false;
 
     public LokatorController() {
     }
@@ -76,6 +77,18 @@ public class LokatorController implements Serializable {
             }
         }
     }
+    
+    public String logowanie(String login, String haslo) {
+        if (getFacade().login(login, haslo)!=null) {
+            selected=getFacade().login(login, haslo);
+            zalogowany = true;
+            return "/lokator/zalogowany_lokator.xhtml";
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Błędny login lub hasło", "Błędny login lub hasło"));
+           selected=getFacade().login(login, haslo);
+     return "Login.xhtml";
+        }
+    }
 
     public void create2() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("LokatorCreated"));
@@ -83,6 +96,7 @@ public class LokatorController implements Serializable {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
+
 
     public void update() {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("LokatorUpdated"));
