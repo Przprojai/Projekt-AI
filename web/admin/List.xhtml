@@ -10,14 +10,14 @@
 
 
         <ui:define name="title">
-            <h:outputText value="#{bundle.ListBudynekTitle}"></h:outputText>
+            <h:outputText value="#{bundleadmin.ListAdminTitle}"></h:outputText>
         </ui:define>
 
         <ui:define name="body">
-            <h:form id="BudynekListForm">
-                <p:panel header="#{bundle.ListBudynekTitle}">
-                    <p:dataTable id="datalist" value="#{budynekController.Listabudynkow(adminController.przekaz())}" var="item"
-                                 selectionMode="single" selection="#{budynekController.selected}"
+            <h:form id="AdminListForm">
+                <p:panel header="#{bundleadmin.ListAdminTitle}">
+                    <p:dataTable id="datalist" value="#{adminController.items}" var="item"
+                                 selectionMode="single" selection="#{adminController.selected}"
                                  paginator="true"
                                  rowKey="#{item.id}"
                                  rows="10"
@@ -29,27 +29,27 @@
 
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListBudynekTitle_id}"/>
+                                <h:outputText value="#{bundleadmin.ListAdminTitle_id}"/>
                             </f:facet>
                             <h:outputText value="#{item.id}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListBudynekTitle_adres}"/>
+                                <h:outputText value="#{bundleadmin.ListAdminTitle_login}"/>
                             </f:facet>
-                            <h:outputText value="#{item.adres}"/>
+                            <h:outputText value="#{item.login}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListBudynekTitle_iloscMieszkan}"/>
+                                <h:outputText value="#{bundleadmin.ListAdminTitle_haslo}"/>
                             </f:facet>
-                            <h:outputText value="#{item.iloscMieszkan}"/>
+                            <h:outputText value="#{item.haslo}"/>
                         </p:column>
                         <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{budynekController.prepareCreate}" update=":BudynekCreateForm" oncomplete="PF('BudynekCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":BudynekViewForm" oncomplete="PF('BudynekViewDialog').show()" disabled="#{empty budynekController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":BudynekEditForm" oncomplete="PF('BudynekEditDialog').show()" disabled="#{empty budynekController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{budynekController.destroy}" update=":growl,datalist" disabled="#{empty budynekController.selected}"/>
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundleadmin.Create}" actionListener="#{adminController.prepareCreate}" update=":AdminCreateForm" oncomplete="PF('AdminCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundleadmin.View}" update=":AdminViewForm" oncomplete="PF('AdminViewDialog').show()" disabled="#{empty adminController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundleadmin.Edit}" update=":AdminEditForm" oncomplete="PF('AdminEditDialog').show()" disabled="#{empty adminController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundleadmin.Delete}" actionListener="#{adminController.destroy}" update=":growl,datalist" disabled="#{empty adminController.selected}"/>
                         </f:facet>
                     </p:dataTable>
                 </p:panel>

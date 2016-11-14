@@ -1,12 +1,9 @@
 package JCP;
 
 import Entity.Admin;
-import Entity.Budynek;
-import Entity.Lokator;
 import JCP.util.JsfUtil;
 import JCP.util.JsfUtil.PersistAction;
-import SBP.BudynekFacade;
-import JCP.LokatorController;
+import SBP.AdminFacade;
 
 import java.io.Serializable;
 import java.util.List;
@@ -17,30 +14,30 @@ import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-@Named("budynekController")
+@Named("adminController")
 @SessionScoped
-public class BudynekController implements Serializable {
+public class AdminController implements Serializable {
 
     @EJB
-    private SBP.BudynekFacade ejbFacade;
-    private List<Budynek> items = null;
-    private Budynek selected;
-    private Lokator selectedlokator;
-    private boolean zalogowanylokator=false;
-    
-    public BudynekController() {
+    private SBP.AdminFacade ejbFacade;
+    private List<Admin> items = null;
+    private Admin selected;
+    private boolean zalogowanyadmin=false;
+
+    public AdminController() {
     }
 
-    public Budynek getSelected() {
+    public Admin getSelected() {
         return selected;
     }
 
-    public void setSelected(Budynek selected) {
+    public void setSelected(Admin selected) {
         this.selected = selected;
     }
 
@@ -50,47 +47,64 @@ public class BudynekController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private BudynekFacade getFacade() {
+    private AdminFacade getFacade() {
         return ejbFacade;
     }
-    
-    public Budynek prepareCreate() {
-        selected = new Budynek();
+
+    public Admin prepareCreate() {
+        selected = new Admin();
         initializeEmbeddableKey();
         return selected;
-        
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("BudynekCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundleadmin").getString("AdminCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
+     public Admin getWybierz()
+    {
+         if (selected == null) {
+            selected = new Admin();
+        }
+        return selected;
+    }
+     public Boolean przekaz(){
+         return zalogowanyadmin;
+     }
+     public String wylogujAdmin(){
+     
+     selected = null;
+     items = null;
+     zalogowanyadmin=false;
+      return "/index.xhtml";
+    }
+    public String find(){
 
+          if(getFacade().login(selected.getLogin(),selected.getHaslo()))
+           {
+               zalogowanyadmin=true;
+            return "/zalogowany_admin.xhtml";
+         }
+           else
+               FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Błąd!", "Błędny login lub hasło"));
+          return "/Login_2.xhtml";
+
+    } 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("BudynekUpdated"));
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundleadmin").getString("AdminUpdated"));
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("BudynekDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundleadmin").getString("AdminDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
-    public List<Budynek> Listabudynkow(boolean zalogowanyadmin) {
-        if(zalogowanyadmin)
-        {
-        if (items == null) {
-            items = getFacade().findAll();
-        }
-            }
-        else
-          items=null;
-        return items;
-        }
-    public List<Budynek> getItems() {
+
+    public List<Admin> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -116,38 +130,38 @@ public class BudynekController implements Serializable {
                 if (msg.length() > 0) {
                     JsfUtil.addErrorMessage(msg);
                 } else {
-                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundleadmin").getString("PersistenceErrorOccured"));
                 }
             } catch (Exception ex) {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
-                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundleadmin").getString("PersistenceErrorOccured"));
             }
         }
     }
 
-    public Budynek getBudynek(java.lang.Short id) {
+    public Admin getAdmin(java.lang.Short id) {
         return getFacade().find(id);
     }
 
-    public List<Budynek> getItemsAvailableSelectMany() {
+    public List<Admin> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<Budynek> getItemsAvailableSelectOne() {
+    public List<Admin> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = Budynek.class)
-    public static class BudynekControllerConverter implements Converter {
+    @FacesConverter(forClass = Admin.class)
+    public static class AdminControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            BudynekController controller = (BudynekController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "budynekController");
-            return controller.getBudynek(getKey(value));
+            AdminController controller = (AdminController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "adminController");
+            return controller.getAdmin(getKey(value));
         }
 
         java.lang.Short getKey(String value) {
@@ -167,11 +181,11 @@ public class BudynekController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Budynek) {
-                Budynek o = (Budynek) object;
+            if (object instanceof Admin) {
+                Admin o = (Admin) object;
                 return getStringKey(o.getId());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Budynek.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Admin.class.getName()});
                 return null;
             }
         }

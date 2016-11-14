@@ -7,17 +7,17 @@
         <h:outputStylesheet name="css/jsfcrud.css"/>
     </h:head>
     <h:body>
-        Hello from Facelets
+        <h:outputLabel value="Witaj #{lokatorController.selected.imie} #{lokatorController.selected.nazwisko}!"/>
+        <h:form>
         <br />
-        <h:link outcome="welcomePrimefaces" value="Primefaces welcome page" />
+        <h:commandButton action="/awaria/List_1" value="Zgłoś awarię"/>
         <br />
-        <h:link outcome="/awaria/List" value="Show All Awaria Items"/>
-        <br />
-        <h:link outcome="/informacje/List" value="Show All Informacje Items"/>
+        <h:commandButton action="/informacje/List" value="Informacje"/>
         <br /> 
-        <h:link outcome="/oplaty/List" value="Show All Oplaty Items"/>
+        <h:commandButton action="/oplaty/List" value="Opłaty"/>
         <br />
-        <h:link outcome="/wlasciciel/List" value="Show All Wlasciciel Items"/>
+        <h:commandButton action="/wlasciciel/List" value="Kontakt z właścicielem"/>
+        </h:form>
     </h:body>
 
 

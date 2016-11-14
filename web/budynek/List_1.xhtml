@@ -16,7 +16,7 @@
         <ui:define name="body">
             <h:form id="BudynekListForm">
                 <p:panel header="#{bundle.ListBudynekTitle}">
-                    <p:dataTable id="datalist" value="#{budynekController.Listabudynkow(adminController.przekaz())}" var="item"
+                    <p:dataTable id="datalist" value="#{budynekController.items}" var="item"
                                  selectionMode="single" selection="#{budynekController.selected}"
                                  paginator="true"
                                  rowKey="#{item.id}"

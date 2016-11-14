@@ -18,14 +18,9 @@
                         <p:calendar id="dataZgloszenia" pattern="HH:mm:ss" value="#{awariaController.selected.dataZgloszenia}" title="#{bundle.EditAwariaTitle_dataZgloszenia}" required="true" requiredMessage="#{bundle.EditAwariaRequiredMessage_dataZgloszenia}" showOn="button"/>
                         <p:outputLabel value="#{bundle.CreateAwariaLabel_opis}" for="opis" />
                         <p:inputText id="opis" value="#{awariaController.selected.opis}" title="#{bundle.CreateAwariaTitle_opis}" required="true" requiredMessage="#{bundle.CreateAwariaRequiredMessage_opis}"/>
-                        <p:outputLabel value="#{bundle.CreateAwariaLabel_rozwiazane}" for="rozwiazane" />
-                        <p:selectBooleanCheckbox id="rozwiazane" value="#{awariaController.selected.rozwiazane}" required="true" requiredMessage="#{bundle.EditAwariaRequiredMessage_rozwiazane}"/>
+                        
                         <p:outputLabel value="#{bundle.CreateAwariaLabel_lokatorId}" for="lokatorId" />
-                        <p:selectOneMenu id="lokatorId" value="#{awariaController.selected.lokatorId}" required="true" requiredMessage="#{bundle.EditAwariaRequiredMessage_lokatorId}">
-                            <f:selectItems value="#{lokatorController.itemsAvailableSelectOne}"
-                                           var="lokatorIdItem"
-                                           itemValue="#{lokatorIdItem}"/>
-                        </p:selectOneMenu>
+                        <p:outputLabel id="lokatorId" value="#{lokatorController.selected}" />
                         <p:outputLabel value="#{bundle.CreateAwariaLabel_budynekId}" for="budynekId" />
                         <p:selectOneMenu id="budynekId" value="#{awariaController.selected.budynekId}" required="true" requiredMessage="#{bundle.EditAwariaRequiredMessage_budynekId}">
                             <f:selectItems value="#{budynekController.itemsAvailableSelectOne}"

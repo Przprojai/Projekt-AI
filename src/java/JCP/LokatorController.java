@@ -89,6 +89,9 @@ public class LokatorController implements Serializable {
      return "Login.xhtml";
         }
     }
+    public Lokator przekaz(){
+        return selected;
+    }
 
     public void create2() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("LokatorCreated"));

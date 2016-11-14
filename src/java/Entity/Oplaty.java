@@ -145,7 +145,7 @@ public class Oplaty implements Serializable {
 
     @Override
     public String toString() {
-        return "Entity.Oplaty[ id=" + id + " ]";
+        return mieszkanieId.getBudynekId().getAdres()+" "+id;
     }
     
 }

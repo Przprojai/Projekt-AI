@@ -1,6 +1,7 @@
 package JCP;
 
 import Entity.Awaria;
+import Entity.Lokator;
 import JCP.util.JsfUtil;
 import JCP.util.JsfUtil.PersistAction;
 import SBP.AwariaFacade;
@@ -54,7 +55,13 @@ public class AwariaController implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
-
+public void create2(Lokator lokator) {
+    //selected.setLokatorId(lokator);
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("AwariaCreated"));
+        if (!JsfUtil.isValidationFailed()) {
+            items = null;    // Invalidate list of items to trigger re-query.
+        }
+    }
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("AwariaCreated"));
         if (!JsfUtil.isValidationFailed()) {
@@ -73,7 +80,14 @@ public class AwariaController implements Serializable {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
-
+    public List<Awaria> budynek(Lokator lokator){
+        items=null;
+        if (items == null) {
+            items = getFacade().findbylokatorid(lokator);
+        }
+        return items;
+    
+    }
     public List<Awaria> getItems() {
         if (items == null) {
             items = getFacade().findAll();

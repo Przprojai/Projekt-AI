@@ -6,7 +6,9 @@
 package Entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -14,10 +16,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -36,6 +40,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Lokator.findByImie", query = "SELECT l FROM Lokator l WHERE l.imie = :imie")
     , @NamedQuery(name = "Lokator.findByNazwisko", query = "SELECT l FROM Lokator l WHERE l.nazwisko = :nazwisko")})
 public class Lokator implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "lokatorId")
+    private Collection<Awaria> awariaCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -180,6 +187,15 @@ public class Lokator implements Serializable {
     @Override
     public String toString() {
         return "Entity.Lokator[ id=" + id + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Awaria> getAwariaCollection() {
+        return awariaCollection;
+    }
+
+    public void setAwariaCollection(Collection<Awaria> awariaCollection) {
+        this.awariaCollection = awariaCollection;
     }
     
 }

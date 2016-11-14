@@ -33,9 +33,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Awaria.findAll", query = "SELECT a FROM Awaria a")
     , @NamedQuery(name = "Awaria.findById", query = "SELECT a FROM Awaria a WHERE a.id = :id")
     , @NamedQuery(name = "Awaria.findByDataZgloszenia", query = "SELECT a FROM Awaria a WHERE a.dataZgloszenia = :dataZgloszenia")
-    , @NamedQuery(name = "Awaria.findByOpis", query = "SELECT a FROM Awaria a WHERE a.opis = :opis")
-    , @NamedQuery(name = "Awaria.findByRozwiazane", query = "SELECT a FROM Awaria a WHERE a.rozwiazane = :rozwiazane")
-    , @NamedQuery(name = "Awaria.findByLokatorId", query = "SELECT a FROM Awaria a WHERE a.lokatorId = :lokatorId")})
+    , @NamedQuery(name = "Awaria.findByOpis", query = "SELECT a FROM Awaria a WHERE a.opis = :opis")  
+    , @NamedQuery(name = "Awaria.findByRozwiazane", query = "SELECT a FROM Awaria a WHERE a.rozwiazane = :rozwiazane")})
 public class Awaria implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -58,13 +57,12 @@ public class Awaria implements Serializable {
     @NotNull
     @Column(name = "rozwiazane")
     private boolean rozwiazane;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "lokator_id")
-    private short lokatorId;
     @JoinColumn(name = "budynek_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Budynek budynekId;
+    @JoinColumn(name = "lokator_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Lokator lokatorId;
 
     public Awaria() {
     }
@@ -73,12 +71,11 @@ public class Awaria implements Serializable {
         this.id = id;
     }
 
-    public Awaria(Short id, Date dataZgloszenia, String opis, boolean rozwiazane, short lokatorId) {
+    public Awaria(Short id, Date dataZgloszenia, String opis, boolean rozwiazane) {
         this.id = id;
         this.dataZgloszenia = dataZgloszenia;
         this.opis = opis;
         this.rozwiazane = rozwiazane;
-        this.lokatorId = lokatorId;
     }
 
     public Short getId() {
@@ -113,20 +110,20 @@ public class Awaria implements Serializable {
         this.rozwiazane = rozwiazane;
     }
 
-    public short getLokatorId() {
-        return lokatorId;
-    }
-
-    public void setLokatorId(short lokatorId) {
-        this.lokatorId = lokatorId;
-    }
-
     public Budynek getBudynekId() {
         return budynekId;
     }
 
     public void setBudynekId(Budynek budynekId) {
         this.budynekId = budynekId;
+    }
+
+    public Lokator getLokatorId() {
+        return lokatorId;
+    }
+
+    public void setLokatorId(Lokator lokatorId) {
+        this.lokatorId = lokatorId;
     }
 
     @Override
