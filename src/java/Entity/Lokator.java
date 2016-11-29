@@ -38,6 +38,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Lokator.findByKontakt", query = "SELECT l FROM Lokator l WHERE l.kontakt = :kontakt")
     , @NamedQuery(name = "Lokator.findByAktywne", query = "SELECT l FROM Lokator l WHERE l.aktywne = :aktywne")
     , @NamedQuery(name = "Lokator.findByImie", query = "SELECT l FROM Lokator l WHERE l.imie = :imie")
+    , @NamedQuery(name = "Lokator.sprawdzAktywne", query = "SELECT l FROM Lokator l WHERE l.login = :login")
     , @NamedQuery(name = "Lokator.findByNazwisko", query = "SELECT l FROM Lokator l WHERE l.nazwisko = :nazwisko")})
 public class Lokator implements Serializable {
 
@@ -186,7 +187,7 @@ public class Lokator implements Serializable {
 
     @Override
     public String toString() {
-        return "Entity.Lokator[ id=" + id + " ]";
+        return imie +" " + nazwisko;
     }
 
     @XmlTransient

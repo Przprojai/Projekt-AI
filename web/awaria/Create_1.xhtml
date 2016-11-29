@@ -12,23 +12,19 @@
             <h:form id="AwariaCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{awariaController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateAwariaLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{awariaController.selected.id}" title="#{bundle.CreateAwariaTitle_id}" required="true" requiredMessage="#{bundle.CreateAwariaRequiredMessage_id}"/>
+                        
                         <p:outputLabel value="#{bundle.CreateAwariaLabel_dataZgloszenia}" for="dataZgloszenia" />
-                        <p:calendar id="dataZgloszenia" pattern="HH:mm:ss" value="#{awariaController.selected.dataZgloszenia}" title="#{bundle.EditAwariaTitle_dataZgloszenia}" required="true" requiredMessage="#{bundle.EditAwariaRequiredMessage_dataZgloszenia}" showOn="button"/>
+                        <p:outputLabel id="dataZgloszenia" value="#{awariaController.data().date}/#{awariaController.data().month}/#{awariaController.data().year+1900}"/>
                         <p:outputLabel value="#{bundle.CreateAwariaLabel_opis}" for="opis" />
                         <p:inputText id="opis" value="#{awariaController.selected.opis}" title="#{bundle.CreateAwariaTitle_opis}" required="true" requiredMessage="#{bundle.CreateAwariaRequiredMessage_opis}"/>
                         
                         <p:outputLabel value="#{bundle.CreateAwariaLabel_lokatorId}" for="lokatorId" />
-                        <p:outputLabel id="lokatorId" value="#{lokatorController.selected}" />
+                        <p:outputLabel id="lokatorId" value="#{lokatorController.selected.imie} #{lokatorController.selected.nazwisko}" />
                         <p:outputLabel value="#{bundle.CreateAwariaLabel_budynekId}" for="budynekId" />
-                        <p:selectOneMenu id="budynekId" value="#{awariaController.selected.budynekId}" required="true" requiredMessage="#{bundle.EditAwariaRequiredMessage_budynekId}">
-                            <f:selectItems value="#{budynekController.itemsAvailableSelectOne}"
-                                           var="budynekIdItem"
-                                           itemValue="#{budynekIdItem}"/>
-                        </p:selectOneMenu>
+                        <p:outputLabel id="budynekId" value="#{lokatorController.selected.mieszkanieId.budynekId.adres} - #{lokatorController.selected.mieszkanieId.id}" />
+                           
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{awariaController.create}" value="#{bundle.Save}" update="display,:AwariaListForm:datalist,:growl" oncomplete="handleSubmit(args,'AwariaCreateDialog');"/>
+                    <p:commandButton actionListener="#{awariaController.create(lokatorController.selected,lokatorController.selected.mieszkanieId.budynekId)}" value="#{bundle.Save}" update="display,:AwariaListForm:datalist,:growl" oncomplete="handleSubmit(args,'AwariaCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="AwariaCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

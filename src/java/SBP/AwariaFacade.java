@@ -12,6 +12,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
@@ -32,12 +33,21 @@ public class AwariaFacade extends AbstractFacade<Awaria> {
     public AwariaFacade() {
         super(Awaria.class);
     }
-    public List<Awaria> findbylokatorid(Lokator lokator){
-        Budynek budynekId=lokator.getMieszkanieId().getBudynekId();
+    public List<Awaria> findbylokatorid(Budynek budynekId){
+      //  Budynek budynekId=lokator.getMieszkanieId().getBudynekId();
         TypedQuery<Awaria> query=
                 em.createQuery("SELECT a FROM Awaria a WHERE a.budynekId=:budynekId",Awaria.class).setParameter("budynekId", budynekId);
         List<Awaria> wynik = query.getResultList();
         return wynik;
     }
-    
+    public Short id() {
+        Query q = em.createQuery("SELECT MAX(x.id) FROM Awaria x");
+        Short result = (Short) q.getSingleResult();
+        if (result == null) {
+            result = 1;
+        } else {
+          result++;
+        }
+        return result;
+    }
 }

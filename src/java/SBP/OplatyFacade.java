@@ -6,9 +6,11 @@
 package SBP;
 
 import Entity.Oplaty;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -28,5 +30,11 @@ public class OplatyFacade extends AbstractFacade<Oplaty> {
     public OplatyFacade() {
         super(Oplaty.class);
     }
-    
+    public List<Oplaty> findbymieszkanieid(Short mieszkanieid){
+      //  Budynek budynekId=lokator.getMieszkanieId().getBudynekId();
+        TypedQuery<Oplaty> query=
+                em.createQuery("SELECT a FROM Oplaty a WHERE a.id=:mieszkanieid",Oplaty.class).setParameter("mieszkanieid", mieszkanieid);
+        List<Oplaty> wynik = query.getResultList();
+        return wynik;
+    }
 }

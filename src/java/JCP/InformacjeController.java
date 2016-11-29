@@ -1,5 +1,6 @@
 package JCP;
 
+import Entity.Budynek;
 import Entity.Informacje;
 import JCP.util.JsfUtil;
 import JCP.util.JsfUtil.PersistAction;
@@ -54,7 +55,14 @@ public class InformacjeController implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
-
+    public List<Informacje> budynek(Budynek budynekId){
+        items=null;
+        if (items == null) {
+            items = getFacade().findbybudynekid(budynekId);
+        }
+        return items;
+    
+    }
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("InformacjeCreated"));
         if (!JsfUtil.isValidationFailed()) {

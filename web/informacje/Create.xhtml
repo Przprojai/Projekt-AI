@@ -15,7 +15,7 @@
                         <p:outputLabel value="#{bundle.CreateInformacjeLabel_id}" for="id" />
                         <p:inputText id="id" value="#{informacjeController.selected.id}" title="#{bundle.CreateInformacjeTitle_id}" required="true" requiredMessage="#{bundle.CreateInformacjeRequiredMessage_id}"/>
                         <p:outputLabel value="#{bundle.CreateInformacjeLabel_data}" for="data" />
-                        <p:calendar id="data" pattern="HH:mm:ss" value="#{informacjeController.selected.data}" title="#{bundle.EditInformacjeTitle_data}" required="true" requiredMessage="#{bundle.EditInformacjeRequiredMessage_data}" showOn="button"/>
+                        <p:calendar id="data" pattern="dd/MM/yyyy" value="#{informacjeController.selected.data}" title="#{bundle.EditInformacjeTitle_data}" required="true" requiredMessage="#{bundle.EditInformacjeRequiredMessage_data}" showOn="button"/>
                         <p:outputLabel value="#{bundle.CreateInformacjeLabel_opis}" for="opis" />
                         <p:inputText id="opis" value="#{informacjeController.selected.opis}" title="#{bundle.CreateInformacjeTitle_opis}" required="true" requiredMessage="#{bundle.CreateInformacjeRequiredMessage_opis}"/>
                         <p:outputLabel value="#{bundle.CreateInformacjeLabel_budynekId}" for="budynekId" />

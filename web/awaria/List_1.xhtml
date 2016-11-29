@@ -6,7 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template.xhtml">
+    <ui:composition template="/template_lokator.xhtml">
 
 
         <ui:define name="title">
@@ -16,7 +16,7 @@
         <ui:define name="body">
             <h:form id="AwariaListForm">
                 <p:panel header="#{bundle.ListAwariaTitle}">
-                    <p:dataTable id="datalist" value="#{awariaController.budynek(lokatorController.selected)}" var="item"
+                    <p:dataTable id="datalist" value="#{awariaController.budynek(lokatorController.selected.mieszkanieId.budynekId)}" var="item"
                                  selectionMode="single" selection="#{awariaController.selected}"
                                  paginator="true"
                                  rowKey="#{item.id}"
@@ -33,7 +33,7 @@
                                 <h:outputText value="#{bundle.ListAwariaTitle_dataZgloszenia}"/>
                             </f:facet>
                             <h:outputText value="#{item.dataZgloszenia}">
-                                <f:convertDateTime pattern="HH:mm:ss" />
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
                             </h:outputText>
                         </p:column>
                         <p:column>
@@ -42,36 +42,31 @@
                             </f:facet>
                             <h:outputText value="#{item.opis}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListAwariaTitle_rozwiazane}"/>
-                            </f:facet>
-                            <p:selectBooleanCheckbox value="#{item.rozwiazane}" disabled="true"/>
-                        </p:column>
+                        
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListAwariaTitle_lokatorId}"/>
                             </f:facet>
-                            <h:outputText value="#{item.lokatorId}"/>
+                            <h:outputText value="#{item.lokatorId.imie} #{item.lokatorId.nazwisko}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListAwariaTitle_budynekId}"/>
                             </f:facet>
-                            <h:outputText value="#{item.budynekId}"/>
+                            <h:outputText value="#{item.budynekId.adres}"/>
                         </p:column>
                         <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{awariaController.prepareCreate}" update=":AwariaCreateForm" oncomplete="PF('AwariaCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":AwariaViewForm" oncomplete="PF('AwariaViewDialog').show()" disabled="#{empty awariaController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":AwariaEditForm" oncomplete="PF('AwariaEditDialog').show()" disabled="#{empty awariaController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{awariaController.destroy}" update=":growl,datalist" disabled="#{empty awariaController.selected}"/>
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="Dodaj awarię" actionListener="#{awariaController.prepareCreate}" update=":AwariaCreateForm" oncomplete="PF('AwariaCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="Podgląd" update=":AwariaViewForm" oncomplete="PF('AwariaViewDialog').show()" disabled="#{empty awariaController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="Edycja" update=":AwariaEditForm" oncomplete="PF('AwariaEditDialog').show()" disabled="#{!awariaController.selected.lokatorId.equals(lokatorController.przekaz())}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="Usuń" actionListener="#{awariaController.destroy}" update=":growl,datalist" disabled="#{!awariaController.selected.lokatorId.equals(lokatorController.przekaz())}"/>
                         </f:facet>
                     </p:dataTable>
                 </p:panel>
             </h:form>
 
-            <ui:include src="Create.xhtml"/>
-            <ui:include src="Edit.xhtml"/>
+            <ui:include src="Create_1.xhtml"/>
+            <ui:include src="Edit_1.xhtml"/>
             <ui:include src="View.xhtml"/>
         </ui:define>
     </ui:composition>

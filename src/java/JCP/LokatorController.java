@@ -57,7 +57,13 @@ public class LokatorController implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
-
+public String wylogujLokator(){
+     
+     selected = null;
+     items = null;
+     zalogowany=false;
+      return "/index.xhtml";
+    }
     public void create(String haslo) {
         if (selected.getLogin().length() < 6) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login musi zawierać conajmniej 6 znaków", "Login musi zawierać conajmniej 6 znaków"));
@@ -79,15 +85,20 @@ public class LokatorController implements Serializable {
     }
     
     public String logowanie(String login, String haslo) {
+        String przenies="Login.xhtml";
+        if(getFacade().sprawdzaktywne(login)){
         if (getFacade().login(login, haslo)!=null) {
             selected=getFacade().login(login, haslo);
             zalogowany = true;
-            return "/lokator/zalogowany_lokator.xhtml";
+            przenies= "/lokator/zalogowany_lokator.xhtml";
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Błędny login lub hasło", "Błędny login lub hasło"));
            selected=getFacade().login(login, haslo);
-     return "Login.xhtml";
-        }
+     
+        }}
+        else
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Konto nieaktywne", "Konto nieaktywne"));
+        return przenies;
     }
     public Lokator przekaz(){
         return selected;

@@ -1,12 +1,15 @@
 package JCP;
 
 import Entity.Awaria;
+import Entity.Budynek;
 import Entity.Lokator;
 import JCP.util.JsfUtil;
 import JCP.util.JsfUtil.PersistAction;
 import SBP.AwariaFacade;
 
 import java.io.Serializable;
+import static java.util.Calendar.DATE;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -19,6 +22,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import static javax.persistence.TemporalType.DATE;
 
 @Named("awariaController")
 @SessionScoped
@@ -68,7 +72,22 @@ public void create2(Lokator lokator) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
-
+    public Date data(){
+        Date data = new Date();
+       return data;
+        
+    }
+ public void create(Lokator lokator, Budynek budynek) {
+      Date data = new Date();
+      selected.setDataZgloszenia(data);
+     selected.setLokatorId(lokator);
+     selected.setBudynekId(budynek);
+     selected.setId(getFacade().id());
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("AwariaCreated"));
+        if (!JsfUtil.isValidationFailed()) {
+            items = null;    // Invalidate list of items to trigger re-query.
+        }
+    }
     public void update() {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("AwariaUpdated"));
     }
@@ -80,15 +99,16 @@ public void create2(Lokator lokator) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
-    public List<Awaria> budynek(Lokator lokator){
+    public List<Awaria> budynek(Budynek budynekId){
         items=null;
         if (items == null) {
-            items = getFacade().findbylokatorid(lokator);
+            items = getFacade().findbylokatorid(budynekId);
         }
         return items;
     
     }
     public List<Awaria> getItems() {
+        items=null;
         if (items == null) {
             items = getFacade().findAll();
         }

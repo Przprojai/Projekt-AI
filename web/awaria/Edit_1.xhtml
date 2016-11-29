@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AwariaEditDlg" widgetVar="AwariaEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditAwariaTitle}">
+            <h:form id="AwariaEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{awariaController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditAwariaLabel_dataZgloszenia}" for="dataZgloszenia" />
+                        <p:outputLabel id="dataZgloszenia"  value="#{awariaController.data().date}/#{awariaController.data().month}/#{awariaController.data().year+1900}" title="#{bundle.EditAwariaTitle_dataZgloszenia}"/>
+                        <p:outputLabel value="#{bundle.EditAwariaLabel_opis}" for="opis" />
+                        <p:inputText id="opis" value="#{awariaController.selected.opis}" title="#{bundle.EditAwariaTitle_opis}" required="true" requiredMessage="#{bundle.EditAwariaRequiredMessage_opis}"/>
+                        <p:outputLabel value="#{bundle.EditAwariaLabel_lokatorId}" for="lokatorId" />
+                        <p:outputLabel id="lokatorId" value="#{awariaController.selected.lokatorId.imie} #{awariaController.selected.lokatorId.nazwisko}" title="#{bundle.EditAwariaTitle_lokatorId}" />
+                        <p:outputLabel value="#{bundle.EditAwariaLabel_budynekId}" for="budynekId" />
+                        <p:outputLabel id="budynekId" value="#{lokatorController.selected.mieszkanieId.budynekId.adres} - #{lokatorController.selected.mieszkanieId.id}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{awariaController.update}" value="#{bundle.Save}" update="display,:AwariaListForm:datalist,:growl" oncomplete="handleSubmit(args, 'AwariaEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="AwariaEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -45,7 +45,7 @@ public class Informacje implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "data")
-    @Temporal(TemporalType.TIME)
+    @Temporal(TemporalType.DATE)
     private Date data;
     @Basic(optional = false)
     @NotNull

@@ -73,5 +73,13 @@ public class LokatorFacade extends AbstractFacade<Lokator> {
         }
         return wynik;
     }
-
+        public Boolean sprawdzaktywne(String login){
+            Boolean aktywne=false;
+         
+             TypedQuery<Lokator> q2 = em.createNamedQuery("Lokator.sprawdzAktywne",Lokator.class).setParameter("login", login);
+            // Lokator lokator=new Lokator();
+            // lokator=q2.getSingleResult();
+             if(q2.getSingleResult().getAktywne()==true)aktywne=true;
+            return aktywne;
+        }
 }

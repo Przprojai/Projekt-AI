@@ -6,9 +6,11 @@
 package SBP;
 
 import Entity.Wlasciciel;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -28,5 +30,11 @@ public class WlascicielFacade extends AbstractFacade<Wlasciciel> {
     public WlascicielFacade() {
         super(Wlasciciel.class);
     }
-    
+    public List<Wlasciciel> findbybudynekid(Short budynekid){
+      //  Budynek budynekId=lokator.getMieszkanieId().getBudynekId();
+        TypedQuery<Wlasciciel> query=
+                em.createQuery("SELECT a FROM Wlasciciel a WHERE a.id=:budynekid",Wlasciciel.class).setParameter("budynekid", budynekid);
+        List<Wlasciciel> wynik = query.getResultList();
+        return wynik;
+    }
 }

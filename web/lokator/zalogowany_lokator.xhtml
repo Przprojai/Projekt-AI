@@ -12,11 +12,13 @@
         <br />
         <h:commandButton action="/awaria/List_1" value="Zgłoś awarię"/>
         <br />
-        <h:commandButton action="/informacje/List" value="Informacje"/>
+        <h:commandButton action="/informacje/List_1" value="Informacje"/>
         <br /> 
-        <h:commandButton action="/oplaty/List" value="Opłaty"/>
+        <h:commandButton action="/oplaty/List_1" value="Opłaty"/>
         <br />
-        <h:commandButton action="/wlasciciel/List" value="Kontakt z właścicielem"/>
+        <h:commandButton action="/wlasciciel/List_1" value="Kontakt z właścicielem"/>
+        <br />
+        <h:commandButton action="#{lokatorController.wylogujLokator()}" value="Wyloguj"/>
         </h:form>
     </h:body>
 

@@ -129,7 +129,7 @@ public class Mieszkanie implements Serializable {
 
     @Override
     public String toString() {
-        return budynekId.getAdres() +" "+ id;
+        return budynekId.getAdres() +" mieszkania "+ id;
     }
     
 }

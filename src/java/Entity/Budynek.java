@@ -154,7 +154,7 @@ public class Budynek implements Serializable {
 
     @Override
     public String toString() {
-        return "Entity.Budynek[ id=" + id + " ]";
+        return adres;
     }
     
 }

@@ -73,7 +73,13 @@ public class OplatyController implements Serializable {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
-
+    public List<Oplaty> Oplaty(Short mieszkanieid) {
+        items=null;
+        if (items == null) {
+            items = getFacade().findbymieszkanieid(mieszkanieid);
+        }
+        return items;
+    }
     public List<Oplaty> getItems() {
         if (items == null) {
             items = getFacade().findAll();

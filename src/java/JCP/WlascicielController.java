@@ -54,7 +54,13 @@ public class WlascicielController implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
-
+public List<Wlasciciel> Wlasciciel(Short budynekid) {
+        items=null;
+        if (items == null) {
+            items = getFacade().findbybudynekid(budynekid);
+        }
+        return items;
+    }
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("WlascicielCreated"));
         if (!JsfUtil.isValidationFailed()) {

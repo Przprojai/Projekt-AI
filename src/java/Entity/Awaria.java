@@ -46,7 +46,7 @@ public class Awaria implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "data_zgloszenia")
-    @Temporal(TemporalType.TIME)
+    @Temporal(TemporalType.DATE)
     private Date dataZgloszenia;
     @Basic(optional = false)
     @NotNull
