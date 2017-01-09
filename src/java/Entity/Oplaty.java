@@ -16,6 +16,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -31,7 +32,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Oplaty.findByCzynsz", query = "SELECT o FROM Oplaty o WHERE o.czynsz = :czynsz")
     , @NamedQuery(name = "Oplaty.findByWodaIScieki", query = "SELECT o FROM Oplaty o WHERE o.wodaIScieki = :wodaIScieki")
     , @NamedQuery(name = "Oplaty.findByOgrzewanie", query = "SELECT o FROM Oplaty o WHERE o.ogrzewanie = :ogrzewanie")
-    , @NamedQuery(name = "Oplaty.findByMedia", query = "SELECT o FROM Oplaty o WHERE o.media = :media")})
+    , @NamedQuery(name = "Oplaty.findByMedia", query = "SELECT o FROM Oplaty o WHERE o.media = :media")
+    , @NamedQuery(name = "Oplaty.findByMiesiac", query = "SELECT o FROM Oplaty o WHERE o.miesiac = :miesiac")
+    , @NamedQuery(name = "Oplaty.findByRok", query = "SELECT o FROM Oplaty o WHERE o.rok = :rok")})
 public class Oplaty implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -56,6 +59,16 @@ public class Oplaty implements Serializable {
     @NotNull
     @Column(name = "media")
     private short media;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 25)
+    @Column(name = "miesiac")
+    private String miesiac;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 25)
+    @Column(name = "rok")
+    private String rok;
     @JoinColumn(name = "mieszkanie_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Mieszkanie mieszkanieId;
@@ -67,12 +80,14 @@ public class Oplaty implements Serializable {
         this.id = id;
     }
 
-    public Oplaty(Short id, short czynsz, short wodaIScieki, short ogrzewanie, short media) {
+    public Oplaty(Short id, short czynsz, short wodaIScieki, short ogrzewanie, short media, String miesiac, String rok) {
         this.id = id;
         this.czynsz = czynsz;
         this.wodaIScieki = wodaIScieki;
         this.ogrzewanie = ogrzewanie;
         this.media = media;
+        this.miesiac = miesiac;
+        this.rok = rok;
     }
 
     public Short getId() {
@@ -113,6 +128,22 @@ public class Oplaty implements Serializable {
 
     public void setMedia(short media) {
         this.media = media;
+    }
+
+    public String getMiesiac() {
+        return miesiac;
+    }
+
+    public void setMiesiac(String miesiac) {
+        this.miesiac = miesiac;
+    }
+
+    public String getRok() {
+        return rok;
+    }
+
+    public void setRok(String rok) {
+        this.rok = rok;
     }
 
     public Mieszkanie getMieszkanieId() {

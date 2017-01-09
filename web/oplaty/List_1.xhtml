@@ -27,12 +27,7 @@
                         <p:ajax event="rowSelect"   update="powrotButton "/>
                         <p:ajax event="rowUnselect" update="powrotButton "/>
 
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="Miesiąc"/>
-                            </f:facet>
-                            <h:outputText value="#{item.id}"/>
-                        </p:column>
+                       
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListOplatyTitle_czynsz}"/>
@@ -57,7 +52,18 @@
                             </f:facet>
                             <h:outputText value="#{item.media}"/>
                         </p:column>
-                        
+                         <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOplatyTitle_miesiac}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.miesiac}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListOplatyTitle_rok}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.rok}"/>
+                        </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="powrotButton"    value="Powrót" action="/lokator/zalogowany_lokator.xhtml"/>
                             </f:facet>

@@ -22,6 +22,10 @@
                         <p:inputText id="ogrzewanie" value="#{oplatyController.selected.ogrzewanie}" title="#{bundle.CreateOplatyTitle_ogrzewanie}" required="true" requiredMessage="#{bundle.CreateOplatyRequiredMessage_ogrzewanie}"/>
                         <p:outputLabel value="#{bundle.CreateOplatyLabel_media}" for="media" />
                         <p:inputText id="media" value="#{oplatyController.selected.media}" title="#{bundle.CreateOplatyTitle_media}" required="true" requiredMessage="#{bundle.CreateOplatyRequiredMessage_media}"/>
+                        <p:outputLabel value="#{bundle.CreateOplatyLabel_miesiac}" for="miesiac" />
+                        <p:inputText id="miesiac" value="#{oplatyController.selected.miesiac}" title="#{bundle.CreateOplatyTitle_miesiac}" required="true" requiredMessage="#{bundle.CreateOplatyRequiredMessage_miesiac}"/>
+                        <p:outputLabel value="#{bundle.CreateOplatyLabel_rok}" for="rok" />
+                        <p:inputText id="rok" value="#{oplatyController.selected.rok}" title="#{bundle.CreateOplatyTitle_rok}" required="true" requiredMessage="#{bundle.CreateOplatyRequiredMessage_rok}"/>
                         <p:outputLabel value="#{bundle.CreateOplatyLabel_mieszkanieId}" for="mieszkanieId" />
                         <p:selectOneMenu id="mieszkanieId" value="#{oplatyController.selected.mieszkanieId}" required="true" requiredMessage="#{bundle.EditOplatyRequiredMessage_mieszkanieId}">
                             <f:selectItems value="#{mieszkanieController.itemsAvailableSelectOne}"

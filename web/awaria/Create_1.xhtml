@@ -14,7 +14,7 @@
                     <p:panelGrid columns="2" rendered="#{awariaController.selected != null}">
                         
                         <p:outputLabel value="#{bundle.CreateAwariaLabel_dataZgloszenia}" for="dataZgloszenia" />
-                        <p:outputLabel id="dataZgloszenia" value="#{awariaController.data().date}/#{awariaController.data().month}/#{awariaController.data().year+1900}"/>
+                        <p:outputLabel id="dataZgloszenia" value="#{awariaController.data().date}/#{awariaController.data().month+1}/#{awariaController.data().year+1900}"/>
                         <p:outputLabel value="#{bundle.CreateAwariaLabel_opis}" for="opis" />
                         <p:inputText id="opis" value="#{awariaController.selected.opis}" title="#{bundle.CreateAwariaTitle_opis}" required="true" requiredMessage="#{bundle.CreateAwariaRequiredMessage_opis}"/>
                         

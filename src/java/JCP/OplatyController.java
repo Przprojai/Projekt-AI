@@ -34,7 +34,13 @@ public class OplatyController implements Serializable {
     public Oplaty getSelected() {
         return selected;
     }
-
+    public List<Oplaty> Oplaty(Short mieszkanieid) {
+        items=null;
+        if (items == null) {
+            items = getFacade().findbymieszkanieid(mieszkanieid);
+        }
+        return items;
+    }
     public void setSelected(Oplaty selected) {
         this.selected = selected;
     }
@@ -48,13 +54,7 @@ public class OplatyController implements Serializable {
     private OplatyFacade getFacade() {
         return ejbFacade;
     }
-    public List<Oplaty> Oplaty(Short mieszkanieid) {
-        items=null;
-        if (items == null) {
-            items = getFacade().findbymieszkanieid(mieszkanieid);
-        }
-        return items;
-    }
+
     public Oplaty prepareCreate() {
         selected = new Oplaty();
         initializeEmbeddableKey();
