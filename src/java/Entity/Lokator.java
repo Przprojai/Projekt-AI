@@ -53,12 +53,12 @@ public class Lokator implements Serializable {
     private Short id;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 25)
+    @Size(min = 6, max = 25)
     @Column(name = "login")
     private String login;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 512)
+    @Size(min = 6, max = 512)
     @Column(name = "haslo")
     private String haslo;
     @Basic(optional = false)

@@ -139,21 +139,17 @@ public String onFlowProcess(FlowEvent event) {
         
 }}}
     public String logowanie(String login, String haslo) {
-        String przenies="Login.xhtml";
-        if(getFacade().sprawdzaktywne(login)){
+        
         if (getFacade().login(login, haslo)!=null) {
             selected=getFacade().login(login, haslo);
             zalogowany = true;
-            przenies= "/lokator/zalogowany_lokator.xhtml";
+            return "/lokator/zalogowany_lokator.xhtml";
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Błędny login lub hasło", "Błędny login lub hasło"));
            selected=getFacade().login(login, haslo);
-     
+           return "Login.xhtml";
         }}
-        else
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Konto nieaktywne", "Konto nieaktywne"));
-        return przenies;
-    }
+        
     public Lokator przekaz(){
         return selected;
     }

@@ -58,6 +58,27 @@ public class LokatorFacade extends AbstractFacade<Lokator> {
         return wynik;
 
     }
+                public boolean sprawdzAktywne(String log) {
+        boolean wynik = false;
+        try {
+            EntityManager em = getEntityManager();
+            Query query = em.createQuery("SELECT c.aktywne FROM Lokator c WHERE c.login LIKE :login");
+            query.setParameter("login", log);
+
+            if (query.getSingleResult() != null) {
+                
+              Lokator lokator = new Lokator();
+              lokator=(Lokator)query.getSingleResult();
+              if(!lokator.getAktywne())wynik=true;
+            //wynik=(Boolean)query.getSingleResult();
+            }
+        } catch (NoResultException e) {
+
+            wynik = false;
+        }
+        return wynik;
+
+    }
         public Lokator login(String log, String pass) {
         pass = CryptWithSHA256.sha256(pass);
         Lokator wynik= new Lokator();
