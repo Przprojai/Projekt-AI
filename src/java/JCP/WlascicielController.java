@@ -54,7 +54,7 @@ public class WlascicielController implements Serializable {
         initializeEmbeddableKey();
         return selected;
     }
-public List<Wlasciciel> Wlasciciel(Short budynekid) {
+    public List<Wlasciciel> Wlasciciel(Short budynekid) {
         items=null;
         if (items == null) {
             items = getFacade().findbybudynekid(budynekid);

@@ -33,8 +33,15 @@ public class AwariaFacade extends AbstractFacade<Awaria> {
     public AwariaFacade() {
         super(Awaria.class);
     }
-    public List<Awaria> findbylokatorid(Budynek budynekId){
+    public List<Awaria> findbybudynekid(Budynek budynekId){
       //  Budynek budynekId=lokator.getMieszkanieId().getBudynekId();
+        TypedQuery<Awaria> query=
+                em.createQuery("SELECT a FROM Awaria a WHERE a.budynekId=:budynekId",Awaria.class).setParameter("budynekId", budynekId);
+        List<Awaria> wynik = query.getResultList();
+        return wynik;
+    }
+    public List<Awaria> findbylokatorid(Lokator lokator){
+        Budynek budynekId=lokator.getMieszkanieId().getBudynekId();
         TypedQuery<Awaria> query=
                 em.createQuery("SELECT a FROM Awaria a WHERE a.budynekId=:budynekId",Awaria.class).setParameter("budynekId", budynekId);
         List<Awaria> wynik = query.getResultList();

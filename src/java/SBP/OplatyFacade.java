@@ -37,4 +37,5 @@ public class OplatyFacade extends AbstractFacade<Oplaty> {
         List<Oplaty> wynik = query.getResultList();
         return wynik;
     }
+    
 }

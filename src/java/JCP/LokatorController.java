@@ -19,6 +19,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.primefaces.event.FlowEvent;
 import szyfrowanie.CryptWithSHA256;
 
 @Named("lokatorController")
@@ -30,6 +31,7 @@ public class LokatorController implements Serializable {
     private List<Lokator> items = null;
     private Lokator selected;
     private boolean zalogowany = false;
+    private boolean hasla=false;
 
     public LokatorController() {
     }
@@ -37,7 +39,6 @@ public class LokatorController implements Serializable {
     public Lokator getSelected() {
         return selected;
     }
-
     public void setSelected(Lokator selected) {
         this.selected = selected;
     }
@@ -51,11 +52,17 @@ public class LokatorController implements Serializable {
     private LokatorFacade getFacade() {
         return ejbFacade;
     }
-
+    public void prepareCreate2(){
+      selected = new Lokator();
+        initializeEmbeddableKey();  
+    }
     public Lokator prepareCreate() {
         selected = new Lokator();
         initializeEmbeddableKey();
         return selected;
+    }
+    public boolean sprawdzlogin(String login){
+       return getFacade().sprawdzLogin(login);
     }
 public String wylogujLokator(){
      
@@ -83,7 +90,54 @@ public String wylogujLokator(){
             }
         }
     }
-    
+
+        public String create3() {
+     /*   if (selected.getLogin().length() < 6) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login musi zawierać conajmniej 6 znaków", "Login musi zawierać conajmniej 6 znaków"));
+        } else if (selected.getLogin().length() < 6) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login musi zawierać conajmniej 6 znaków", "Login musi zawierać conajmniej 6 znaków"));
+        } else if (getFacade().sprawdzLogin(selected.getLogin())) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login zajęty", "Login musi zawierać conajmniej 6 znaków"));
+        } else if (!selected.getHaslo().equals(haslo)) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Hasła muszą się zgadzać", "Login musi zawierać conajmniej 6 znaków"));
+        } else*/ 
+
+            selected.setAktywne(false);
+            selected.setHaslo(CryptWithSHA256.sha256(selected.getHaslo()));
+            selected.setId(getFacade().id());
+            persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("LokatorCreated"));
+            if (!JsfUtil.isValidationFailed()) {
+                items = null;    // Invalidate list of items to trigger re-query.
+               return "/Login";
+            }
+            else
+            {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Błąd", "Błąd"));
+                return "/Login.xhtml";
+            }
+    }
+        public void sprawdzhaslo(String haslo,String haslo2){
+            if(haslo.equals(haslo2)) hasla= true; else hasla= false;
+        }
+
+public String onFlowProcess(FlowEvent event) {
+    if (selected.getLogin().length() < 6) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login musi zawierać conajmniej 6 znaków", "Login musi zawierać conajmniej 6 znaków"));
+    return "personal";}
+            else{
+        if(selected.getHaslo().length() < 6){FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Hasło musi zawierać conajmniej 6 znaków", "Hasło musi zawierać conajmniej 6 znaków"));
+    return "personal";}
+        else
+    if(!hasla) {FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Hasła muszą się zgadzać", "Hasła muszą się zgadzać"));return "personal";}
+    else{
+           if(getFacade().sprawdzLogin(selected.getLogin())){
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Login zajęty", "Login zajęty"));
+  return "personal"; 
+    }
+         
+    else return event.getNewStep();
+        
+}}}
     public String logowanie(String login, String haslo) {
         String przenies="Login.xhtml";
         if(getFacade().sprawdzaktywne(login)){

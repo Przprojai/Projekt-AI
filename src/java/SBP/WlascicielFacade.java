@@ -30,7 +30,7 @@ public class WlascicielFacade extends AbstractFacade<Wlasciciel> {
     public WlascicielFacade() {
         super(Wlasciciel.class);
     }
-    public List<Wlasciciel> findbybudynekid(Short budynekid){
+     public List<Wlasciciel> findbybudynekid(Short budynekid){
       //  Budynek budynekId=lokator.getMieszkanieId().getBudynekId();
         TypedQuery<Wlasciciel> query=
                 em.createQuery("SELECT a FROM Wlasciciel a WHERE a.id=:budynekid",Wlasciciel.class).setParameter("budynekid", budynekid);

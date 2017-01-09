@@ -8,7 +8,6 @@ import JCP.util.JsfUtil.PersistAction;
 import SBP.AwariaFacade;
 
 import java.io.Serializable;
-import static java.util.Calendar.DATE;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -53,7 +52,14 @@ public class AwariaController implements Serializable {
     private AwariaFacade getFacade() {
         return ejbFacade;
     }
-
+public List<Awaria> budynek(Budynek budynekId){
+        items=null;
+        if (items == null) {
+            items = getFacade().findbybudynekid(budynekId);
+        }
+        return items;
+    
+    }
     public Awaria prepareCreate() {
         selected = new Awaria();
         initializeEmbeddableKey();
@@ -72,12 +78,10 @@ public void create2(Lokator lokator) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
-    public Date data(){
-        Date data = new Date();
-       return data;
-        
-    }
- public void create(Lokator lokator, Budynek budynek) {
+
+    
+    
+     public void create(Lokator lokator, Budynek budynek) {
       Date data = new Date();
       selected.setDataZgloszenia(data);
      selected.setLokatorId(lokator);
@@ -99,13 +103,22 @@ public void create2(Lokator lokator) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
-    public List<Awaria> budynek(Budynek budynekId){
+
+ 
+
+    public List<Awaria> budynek2(Lokator lokator){
+
         items=null;
         if (items == null) {
-            items = getFacade().findbylokatorid(budynekId);
+            items = getFacade().findbylokatorid(lokator);
         }
         return items;
     
+    }
+    public Date data(){
+        Date data = new Date();
+       return data;
+        
     }
     public List<Awaria> getItems() {
         items=null;

@@ -2,6 +2,7 @@ package JCP;
 
 import Entity.Admin;
 import Entity.Budynek;
+import Entity.Informacje;
 import Entity.Lokator;
 import JCP.util.JsfUtil;
 import JCP.util.JsfUtil.PersistAction;
@@ -60,7 +61,7 @@ public class BudynekController implements Serializable {
         return selected;
         
     }
-
+    
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("BudynekCreated"));
         if (!JsfUtil.isValidationFailed()) {
