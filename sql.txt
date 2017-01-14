@@ -1,3 +1,9 @@
+create table admin
+(
+	id INT2 not null primary key,
+	login VARCHAR(25) not null,
+	haslo VARCHAR(512) not null
+);
 create table awaria
 (
 	id INT2 not null primary key,
@@ -6,20 +12,20 @@ create table awaria
 	rozwiazane BOOL default false not null,
 	lokator_id INT2 not null,
 	budynek_id INT2 not null
-)
+);
 create table budynek
 (
 	id INT2 not null primary key,
 	adres VARCHAR(256) not null,
 	ilosc_mieszkan INT2 default 1 not null
-)
+);
 create table informacje
 (
 	id INT2 not null primary key,
 	data DATE not null,
 	opis VARCHAR(256) not null,
 	budynek_id INT2 not null
-)
+);
 create table lokator
 (
 	id INT2 not null primary key,
@@ -30,38 +36,39 @@ create table lokator
 	mieszkanie_id INT2,
 	imie VARCHAR(25) not null,
 	nazwisko VARCHAR(25) not null
-)
+);
 create table mieszkanie
 (
 	id INT2 not null primary key,
 	ilosc_pokoi INT2 default 1 not null,
 	budynek_id INT2 not null
-)
+);
 create table oplaty
 (
 	id INT2 not null primary key,
 	czynsz INT2 not null,
+	miesiac VARCHAR(25) not null,
+	rok VARCHAR(25) not null,
 	woda_i_scieki INT2 not null,
 	ogrzewanie INT2 not null,
 	media INT2 not null,
 	mieszkanie_id INT2 not null
-)
+);
 create table wlasciciel
 (
 	id INT2 not null primary key,
 	login VARCHAR(25) not null,
 	haslo VARCHAR(256) not null,
+	imie VARCHAR(25) not null,
+	nazwisko VARCHAR(25) not null,
 	kontakt VARCHAR(256) not null,
 	budynek_id INT2 not null
-)
+);
 
-ALTER TABLE awaria ADD FOREIGN KEY (lokator_id) REFERENCES lokator(id)
-ALTER TABLE awaria ADD FOREIGN KEY (budynek_id) REFERENCES budynek(id)
-ALTER TABLE informacje ADD FOREIGN KEY (budynek_id) REFERENCES budynek(id)
-ALTER TABLE wlasciciel ADD FOREIGN KEY (budynek_id) REFERENCES budynek(id)
-ALTER TABLE mieszkanie ADD FOREIGN KEY (budynek_id) REFERENCES budynek(id)
-ALTER TABLE lokator ADD FOREIGN KEY (mieszkanie_id) REFERENCES mieszkanie(id)
-ALTER TABLE oplaty ADD FOREIGN KEY (mieszkanie_id) REFERENCES mieszkanie(id)
-
-
-
+ALTER TABLE awaria ADD FOREIGN KEY (lokator_id) REFERENCES lokator(id);
+ALTER TABLE awaria ADD FOREIGN KEY (budynek_id) REFERENCES budynek(id);
+ALTER TABLE informacje ADD FOREIGN KEY (budynek_id) REFERENCES budynek(id);
+ALTER TABLE wlasciciel ADD FOREIGN KEY (budynek_id) REFERENCES budynek(id);
+ALTER TABLE mieszkanie ADD FOREIGN KEY (budynek_id) REFERENCES budynek(id);
+ALTER TABLE lokator ADD FOREIGN KEY (mieszkanie_id) REFERENCES mieszkanie(id);
+ALTER TABLE oplaty ADD FOREIGN KEY (mieszkanie_id) REFERENCES mieszkanie(id);
